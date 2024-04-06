@@ -29,9 +29,9 @@ router.post("/add-class", adminAddClass);
 
 router.get("/get-class/:id", sclassList);
 
-router.get("/get-Students/:id", getStudents);
+router.get("/get-students/:id", getStudents);
 
-// router.post("/admin/add-stuudent", adminAddStuudent);
+router.post("/admin/add-stuudent", adminAddStuudent);
 
 // const verifyUser = async (req, res, next) => {
 //   try {

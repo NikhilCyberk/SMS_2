@@ -6,7 +6,13 @@ const ListClass = () => {
   const [classes, setClasses] = useState([]);
 
   const id = localStorage.getItem("_id");
-  console.log(id);
+  // console.log(id);
+
+  const handleViewClass = (classId) => {
+    console.log({ classId });
+  }
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,13 +34,14 @@ const ListClass = () => {
 
   return (
     <>
-      <div class="ml-[16rem] w-[100rem] h-screen mx-auto bg-gradient-to-r from-gray-700 to-gray-800 rounded-xl shadow-lg p-8 mb-8">
-        <h1 class="text-4xl font-bold text-white mb-6">Classes List</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6   ">
+      <div class=" w-full h-full mx-auto shadow-lg p-8 overflow-auto">
+        <h1 class="text-4xl font-bold text-blue-500 mb-6">Classes List</h1>
+        {/* <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-auto w-auto  "> */}
+        <div class="flex flex-wrap gap-5 ">
           {classes.length > 0 ? (
             classes.map((classItem) => (
               <div
-                class="bg-white rounded-lg shadow-lg p-6 bg-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+                class="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 transform hover:scale-105 min-w-[250px] max-w-[300px]  max-h-[250px] m-6"
                 key={classItem.id}
               >
                 <h3 class="text-xl font-bold mb-4">{classItem.sclassName}</h3>
