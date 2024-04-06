@@ -1,84 +1,58 @@
 import React from "react";
 import SideB from "./SideB";
 import { FaPowerOff } from "react-icons/fa";
+import { HiOutlineMenu } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { RxCross1 } from "react-icons/rx";
+import ContentContainer from "../pages/admin/Layout/ContentContainer";
+
 
 const Topbar = () => {
+
+  const [showSidebar, setShowSidebar] = useState(false);
+
   return (
-    // <>
-    //   {localStorage.getItem("token") &&
-    //     localStorage.getItem("role") === "Admin" && (
-    //       <div>
-    //         <div className="bg-gray-900 text-white p-4 flex justify-between items-center fixed top-0 left-0 w-screen z-10">
-    //           <p className="text-xl font-semibold">Admin Dashboard</p>
-    //           <button
-    //             onClick={() => {
-    //               localStorage.clear();
-    //               window.location.reload();
-    //             }}
-    //             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-    //           >
-    //             Log Out
-    //           </button>
-    //         </div>
-    //         <SideB />
-    //       </div>
-    //     )}
-    // </>
 
-    // <>
-    //   {localStorage.getItem("token") &&
-    //     localStorage.getItem("role") === "Admin" && (
-    //       <div>
-    //         <div className="bg-gradient-to-r from-purple-400 to-blue-500 text-white p-4 flex justify-between items-center fixed top-0 left-0 w-screen z-10">
-    //           <p className="text-2xl font-semibold">Admin Dashboard</p>
-    //           <button
-    //             onClick={() => {
-    //               localStorage.clear();
-    //               window.location.reload();
-    //             }}
-    //             className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition-all duration-300"
-    //           >
-    //             Log Out
-    //           </button>
-    //         </div>
-    //         <SideB />
-    //       </div>
-    //     )}
-    // </>
+    <div className="w-screen h-screen ">
+      <div className="w-full bg-blue-500 dark:bg-gray-900 h-[70px]  py-3 px-2 flex justify-between fixed top-0 z-40" >
+        <div>
+          {showSidebar ? (
+            <button
+              className="w-[10%] text-4xl hover:cursor-pointer  text-white fixed top-4 left-2 z-50"
+              onClick={() => setShowSidebar(!showSidebar)}
+            >
+              <RxCross1 />
+            </button>
+          ) : (
+            <button className="w-[10%]  text-4xl hover:cursor-pointer text-white fixed top-4 left-2 z-50"
+              onClick={() => setShowSidebar(!showSidebar)}>
+              <HiOutlineMenu />
+            </button>
+          )}
+        </div>
 
-    <>
-      {localStorage.getItem("token") &&
-        localStorage.getItem("role") === "Admin" && (
-          <div className="flex pl-[16rem]">
-            {/* Sidebar */}
-            <SideB />
+        <div className="w-auto h-full flex justify-center items-center">
+          <div className=" p-3 text-xl text-red-600  hover:cursor-pointer hover:text-red-600 ">
+            <Link to={"#"}>
+              Logout
+            </Link>
 
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden bg-gradient-to-r from-grey-400 to-blue-500 text-white">
-              {/* Top Bar */}
-              <div className="p-4 flex justify-between items-center bg-gray-900 border-b border-gray-900">
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-blue-700 rounded-full mr-3"></div>
-                  <p className="text-lg font-semibold">Admin Dashboard</p>
-                </div>
-                <button
-                  onClick={() => {
-                    localStorage.clear();
-                    window.location.reload();
-                  }}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full transition-all duration-300 flex items-center"
-                >
-                  <FaPowerOff className="mr-2 text-lg" />
-                  Log Out
-                </button>
-              </div>
-
-              {/* Main Content Goes Here */}
-              {/* Add your main content components and routes here */}
-            </div>
           </div>
-        )}
-    </>
+          <div className="p-2 text-xl text-white font-thin hover:cursor-pointer hover:text-green-800">
+            <Link to={"#"}>
+              Profile
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className={`h-auto w-[50%] bg-orange-400 fixed z-30 top-0 left-0 ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "-translate-x-full"
+        } md:translate-x-0 md:z-50 md:w-[250px]  md:h-full`}>
+        <SideB setShowSidebar={setShowSidebar}/>
+      </div>
+
+      {/* <ContentContainer/> */}
+    </div>
   );
 };
 

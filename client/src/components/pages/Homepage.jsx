@@ -1,34 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Students from "../../assets/students.svg";
-import ChooseUser from "./ChooseUser";
-import { useNavigate } from "react-router-dom";
 
 export default function Homepage() {
-  const navigate = useNavigate();
   return (
     <>
-      <div className="bg-gradient-to-r mt-0 from-blue-200 to-lime-200 h-screen w-screen flex items-center justify-center">
-        <div className="flex items-center justify-center">
-          <div className="mr-32 w-1/2">
-            <img src={Students} alt="Your Image" />
-          </div>
-
-          <div className="text-center w-1/2 mr-12">
-            <h1 className="text-blue-500 text-4xl font-bold mb-6">
-              Welcome to School Management Solution
-            </h1>
-            <p className="text-gray-600 mb-8">
-              Discover amazing things with our awesome service.
-            </p>
-            <Link to="/chooseuser">
-              <div className="border text-gray-50 duration-300 relative group cursor-pointer overflow-hidden h-16 w-128 rounded-full bg-blue-600 p-2 font-extrabold hover:bg-lime-400">
-                <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-16 h-16 rounded-full group-hover:scale-150 duration-700 right-12 top-12 bg-blue-600"></div>
-                <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-12 h-12 rounded-full group-hover:scale-150 duration-700 right-20 -top-6 bg-lime-400"></div>
-                <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-8 h-8 rounded-full group-hover:scale-150 duration-700 right-32 top-6 bg-blue-600"></div>
-                <div className="absolute group-hover:-top-1 group-hover:-right-2 z-10 w-4 h-4 rounded-full group-hover:scale-150 duration-700 right-2 top-12 bg-lime-400"></div>
-                <p className="z-10 absolute bottom-2 left-10">See more</p>
-              </div>
+      <div className='bg-gradient-to-r mt-0 from-blue-200 to-lime-200 h-screen w-screen flex flex-col md:flex md:flex-row '>
+        <div className='p-6 flex justify-center md:w-[50%]'>
+          <img src={Students} alt='Your Image' />
+        </div>
+        <div className='mx-6 h-auto md:w-[50%] md:flex md:justify-center md:flex-col md:px-20'>
+          <h1 className="text-blue-500 text-4xl font-bold mb-4 text-center h-auto">Welcome to School Management Solution</h1>
+          <p className="text-gray-600 mb-3 text-center h-auto">
+            Discover amazing things with our awesome service.
+          </p>
+          <div className='flex justify-center items-center mt-10 w-full'>
+            <Link to="/chooseuser" className='bg-blue-500 hover:bg-blue-700 text-white font-bold flex justify-center items-center h-10 rounded cursor-pointer w-full md:h-15 '>
+              Explore more...
             </Link>
           </div>
         </div>

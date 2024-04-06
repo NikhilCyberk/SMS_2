@@ -14,7 +14,7 @@ const AddStudentForm = () => {
     axios
       .get(`http://localhost:3000/get-class/${id}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setClasses(response.data);
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ const AddStudentForm = () => {
       })
       .then((response) => {
         if (response.status) {
-          console.log(response);
+          // console.log(response);
           confirm(response.data.message);
           // navigate("/login");
         }
