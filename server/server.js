@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use("/", UserRouter);
 
 async function main() {
-  monggoose.connect("mongodb://127.0.0.1:27017/login-sign");
+  monggoose.connect(`${process.env.MONGODB_URL}`);
 }
 
 main()
