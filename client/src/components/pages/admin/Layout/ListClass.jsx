@@ -32,11 +32,28 @@ const ListClass = () => {
     fetchData();
   }, []); // The empty dependency array ensures that the effect runs once when the component mounts
 
+  const data = [
+    { id: 1, name: 'Component 1', description: 'Description 1' },
+    { id: 2, name: 'Component 2', description: 'Description 2' },
+    { id: 3, name: 'Component 3', description: 'Description 3' },
+    { id: 1, name: 'Component 1', description: 'Description 1' },
+    { id: 2, name: 'Component 2', description: 'Description 2' },
+    { id: 3, name: 'Component 3', description: 'Description 3' },
+    { id: 1, name: 'Component 1', description: 'Description 1' },
+    { id: 2, name: 'Component 2', description: 'Description 2' },
+    { id: 3, name: 'Component 3', description: 'Description 3' },
+    { id: 1, name: 'Component 1', description: 'Description 1' },
+    { id: 2, name: 'Component 2', description: 'Description 2' },
+    { id: 3, name: 'Component 3', description: 'Description 3' },
+    { id: 1, name: 'Component 1', description: 'Description 1' },
+    { id: 2, name: 'Component 2', description: 'Description 2' },
+    { id: 3, name: 'Component 3', description: 'Description 3' },
+  ];
+
   return (
     <>
-      <div class=" w-full h-full mx-auto shadow-lg p-8 overflow-auto">
+      {/* <div class=" w-full h-full mx-auto shadow-lg p-8 overflow-auto">
         <h1 class="text-4xl font-bold text-blue-500 mb-6">Classes List</h1>
-        {/* <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-auto w-auto  "> */}
         <div class="flex flex-wrap gap-5 ">
           {classes.length > 0 ? (
             classes.map((classItem) => (
@@ -67,50 +84,56 @@ const ListClass = () => {
             <p>No classes found</p>
           )}
         </div>
+      </div> */}
+
+
+
+      <div className="w-full h-full mx-auto shadow-lg p-8 overflow-auto border-2 border-gray-950">
+        <h1 class="text-4xl font-bold text-blue-500 mb-6">Classes List</h1>
+        <table className="table-auto w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="px-4 py-2">Class</th>
+              <th className="px-4 py-2">Description</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {classes.length > 0 ? (
+              classes.map((classItem, index) => (
+              <tr key={classItem.id} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                <td className="border px-4 py-2">{classItem.sclassName}</td>
+                <td className="border px-4 py-2">{classItem.createdAt + " " + classItem.updatedAt}</td>
+                <td className="border px-4 py-2">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                  //   onClick={() => handleViewClass(classItem.id)}
+                  >
+                    View
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+                  //   onClick={() => handleDeleteClass(classItem.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  //   onClick={() => onDelete(index)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <p>No classes found</p>
+          )}
+          </tbody>
+        </table>
       </div>
     </>
 
-    // <>
-    //   <div className="mt-10 mx-auto w-96 bg-gradient-to-r from-purple-400 to-blue-500 rounded-lg shadow-lg p-8 mb-8">
-    //     <h1 className="text-4xl font-bold text-white mb-6">Classes List</h1>
-    //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    //       {classes.length > 0 ? (
-    //         classes.map((classItem) => (
-    //           <div
-    //             className="bg-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
-    //             key={classItem.id}
-    //           >
-    //             <h3 className="text-2xl font-bold mb-4">
-    //               {classItem.sclassName}
-    //             </h3>
-    //             <p className="text-gray-600">
-    //               Created At: {classItem.createdAt}
-    //             </p>
-    //             <p className="text-gray-600">
-    //               Updated At: {classItem.updatedAt}
-    //             </p>
-    //             <div className="flex justify-end mt-4 space-x-4">
-    //               <button
-    //                 className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-all duration-300"
-    //                 onClick={() => handleViewClass(classItem.id)}
-    //               >
-    //                 View
-    //               </button>
-    //               <button
-    //                 className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-all duration-300"
-    //                 onClick={() => handleDeleteClass(classItem.id)}
-    //               >
-    //                 Delete
-    //               </button>
-    //             </div>
-    //           </div>
-    //         ))
-    //       ) : (
-    //         <p className="text-white">No classes found</p>
-    //       )}
-    //     </div>
-    //   </div>
-    // </>
   );
 };
 
