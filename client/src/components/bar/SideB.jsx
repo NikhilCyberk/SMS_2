@@ -99,7 +99,7 @@ const SideB = (setShowSidebar) => {
     <div
       className={` h-full w-full bg-blue-500 border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 transition-all duration-300 border-none`}
     >
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col p-5 ">
         <div className="flex justify-center items-center">
           <Link to="/">
             <img
@@ -112,8 +112,8 @@ const SideB = (setShowSidebar) => {
         </div>
 
 
-        <nav className="mt-6 ">
-          <div className="space-y-5 flex flex-col justify-center  ">
+        <nav className="mt-6 h-full ">
+          <div className="h-full space-y-5 flex flex-col justify-center">
             {/* Dashboard Link */}
             <NavLink
               to="/admin-dashboard"

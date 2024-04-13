@@ -20,6 +20,8 @@ import ListStudent from "./components/pages/admin/Layout/ListStudent";
 import AdminLayout from "./components/pages/admin/Layout/AdminLayout";
 import Authorization from "./components/pages/admin/Authorization";
 import AuthorizationContainer from "./components/pages/admin/AuthorizationContainer";
+import { store } from "./store/store";
+import {Provider} from 'react-redux'
 
 export const router = createBrowserRouter([
   {
@@ -88,7 +90,7 @@ export const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </Provider>
 )

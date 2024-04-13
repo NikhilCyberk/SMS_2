@@ -7,10 +7,9 @@ const AdminLayout = () => {
     return (
         <>
             <Topbar />
-            <ContentContainer>
-                <Outlet/>
-            </ContentContainer>
-            
+                <ContentContainer>
+                    <Outlet />
+                </ContentContainer>
         </>
     )
 }
