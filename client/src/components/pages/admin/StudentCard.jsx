@@ -38,40 +38,69 @@ const StudentCard = () => {
     //   </div>
     // </div>
 
+    // <>
+    //   <div className=" flex min-w-40 max-w-80 h-auto flex-col rounded-xl bg-white shadow-md overflow-hidden mx-10 my-10">
+    //     <div className="relative h-40 overflow-hidden rounded-t-xl bg-gradient-to-r from-blue-600 to-blue-400">
+    //       <img
+    //         src={studentIng}
+    //         alt="student"
+    //         className="w-full h-full object-contain"
+    //       />
+    //     </div>
+    //     <div className="p-6">
+    //       <h5 className="mb-2 text-2xl font-bold text-gray-800">Teacher</h5>
+    //       <p className="text-base font-light leading-relaxed text-gray-600">
+    //         Login as a teacher to access the dashboard and manage app data.
+    //       </p>
+    //     </div>
+    //     <div className="p-6 pt-0 flex items-center justify-between bg-gradient-to-t from-gray-100 to-white">
+    //       <Link to="/signup">
+    //         <button
+    //           type="button"
+    //           className="select-none rounded-lg bg-blue-600 text-white py-3 px-6 text-center font-semibold uppercase shadow-md transition-all hover:bg-purple-700 focus:outline-none focus:ring focus:border-purple-500"
+    //         >
+    //           Signup
+    //         </button>
+    //       </Link>
+    //       <Link to="/login">
+    //         <button
+    //           type="button"
+    //           className="select-none ml-4 rounded-lg bg-white text-blue-600 py-3 px-6 text-center font-semibold uppercase border border--blue-600 shadow-md transition-all hover:bg-gray-100 focus:outline-none focus:ring focus:border-purple-500"
+    //         >
+    //           Login
+    //         </button>
+    //       </Link>
+    //     </div>
+    //   </div>
+    // </>
+
     <>
-      <div className=" flex min-w-40 max-w-80 h-auto flex-col rounded-xl bg-white shadow-md overflow-hidden mx-10 my-10">
-        <div className="relative h-40 overflow-hidden rounded-t-xl bg-gradient-to-r from-blue-600 to-blue-400">
-          <img
-            src={studentIng}
-            alt="Admin"
-            className="w-full h-full object-contain"
-          />
-        </div>
-        <div className="p-6">
-          <h5 className="mb-2 text-2xl font-bold text-gray-800">
-            Teacher
-          </h5>
-          <p className="text-base font-light leading-relaxed text-gray-600">
-            Login as a teacher to access the dashboard and manage app data.
-          </p>
-        </div>
-        <div className="p-6 pt-0 flex items-center justify-between bg-gradient-to-t from-gray-100 to-white">
-          <Link to="/signup">
-            <button
-              type="button"
-              className="select-none rounded-lg bg-blue-600 text-white py-3 px-6 text-center font-semibold uppercase shadow-md transition-all hover:bg-purple-700 focus:outline-none focus:ring focus:border-purple-500"
-            >
-              Signup
-            </button>
-          </Link>
-          <Link to="/login">
-            <button
-              type="button"
-              className="select-none ml-4 rounded-lg bg-white text-blue-600 py-3 px-6 text-center font-semibold uppercase border border--blue-600 shadow-md transition-all hover:bg-gray-100 focus:outline-none focus:ring focus:border-purple-500"
-            >
-              Login
-            </button>
-          </Link>
+      <div className="w-full lg:w-1/2">
+        {/* Card Three */}
+        <div className="bg-blue-900 rounded-xl min-h-[585px] text-white flex items-center relative p-6 lg:p-12 z-10">
+          {/* Shape */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <img src={"studednt image"} alt="" />
+          </div>
+          <div className="grid grid-cols-12">
+            <div className="col-span-6">
+              <h1 className="text-[32px] md:text-5xl font-bold leading-[1.1]">
+                Student dashboard
+              </h1>
+              <Link to={"/st_login"}>
+                <button
+                  className={`px-7 py-3.5 leading-none rounded-lg bg-red-500 text-white font-bold mt-12`}
+                >
+                  Sign in
+                </button>
+              </Link>
+            </div>
+            <div className="col-span-6">
+              <div className="absolute bottom-0  right-10 -z-10">
+                <img src={studentIng} alt="" className="max-w-full h-auto" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

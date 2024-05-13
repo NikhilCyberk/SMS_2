@@ -19,7 +19,7 @@
 // const UserModel = mongoose.model('User', UserSchema)
 // export { UserModel as User };
 
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema({
   name: {
@@ -37,7 +37,7 @@ const adminSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "Admin",
+    default: "admin",
   },
   schoolName: {
     type: String,
@@ -45,7 +45,6 @@ const adminSchema = new mongoose.Schema({
     required: true,
   },
 });
-
 
 const AdminSchema = mongoose.model("Admin", adminSchema);
 export { AdminSchema as Admin };

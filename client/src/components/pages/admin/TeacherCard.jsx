@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const TeacherCard = () => {
   return (
-
     <>
       {/* <div className="flex justify-center items-center mt-20 ml-20"> */}
       {/* <div className="relative w-80 h-auto flex flex-col rounded-xl bg-white text-gray-700 shadow-md overflow-hidden ">
@@ -39,9 +38,7 @@ const TeacherCard = () => {
         </div>
       </div>
       </div> */}
-
-
-
+      {/* 
       <div className=" flex min-w-40 max-w-80 h-auto my-10 flex-col rounded-xl bg-white shadow-md overflow-hidden mx-10">
         <div className="relative h-40 overflow-hidden rounded-t-xl bg-gradient-to-r from-blue-400 to-blue-600">
           <img
@@ -51,9 +48,7 @@ const TeacherCard = () => {
           />
         </div>
         <div className="p-6">
-          <h5 className="mb-2 text-2xl font-bold text-gray-800">
-            Teacher
-          </h5>
+          <h5 className="mb-2 text-2xl font-bold text-gray-800">Teacher</h5>
           <p className="text-base font-light leading-relaxed text-gray-600">
             Login as a teacher to access the dashboard and manage app data.
           </p>
@@ -75,6 +70,46 @@ const TeacherCard = () => {
               Login
             </button>
           </Link>
+        </div>
+      </div>
+    </> */}
+
+      <div>
+        <div className="bg-red-600 rounded-xl min-h-[280px] text-white flex items-center relative p-6 lg:p-12 mb-6 z-10">
+          {/* Shape */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <img src={"teacher image"} alt="" />
+          </div>
+          <div className="absolute bottom-0 left-0 -z-10">
+            <img
+              src="https://cdn.easyfrontend.com/pictures/circle-abstract.png"
+              alt=""
+            />
+          </div>
+          <div className="absolute top-0 right-0 -z-10">
+            <img
+              src="https://cdn.easyfrontend.com/pictures/circle-abstract.png"
+              alt=""
+            />
+          </div>
+          <div className="grid grid-cols-12">
+            <div className="col-span-6">
+              <h1 className="text-[32px] md:text-5xl font-bold leading-[1.1]">
+                Teacher Dashboard
+              </h1>
+              <Link to="/t_login">
+
+              <button className="px-7 py-3.5 leading-none rounded-lg bg-white text-red-500 font-bold mt-12">
+                Sign In
+              </button>
+              </Link>
+            </div>
+            <div className="col-span-6">
+              <div className="absolute bottom-0 right-5 -z-10 w-[20rem]">
+                <img src={teacherIng} alt="" className="max-w-full h-auto" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

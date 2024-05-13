@@ -1,51 +1,46 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { remove, fatch } from "../../../../store/slice/Students";
-import Popup from "reactjs-popup";
-import AddStudentForm from "./AddStudentForm";
+import AddStudentForm from "../admin/Layout/AddStudentForm";
+const StudentListByClass = () => {
+  const { classId } = useParams();
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const ListStudent = () => {
-  const s = useSelector((state) => state.students);
-  const dispatch = useDispatch();
-
-  const [students, setStudent] = useState([]);
-
-  const id = localStorage.getItem("_id");
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchStudents = async () => {
       try {
-        // Replace 'YOUR_NODE_SERVER_URL' with the actual URL of your Node.js server
         const response = await axios.get(
-          `http://localhost:3000/get-students/${id}`,
-          {}
+          `http://localhost:3000/class/Students/${classId}`
         );
-        // Assuming your API response has the data you want in response.data
-        setStudent(response.data);
-        // console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log(response.data);
+        if (response.data.status) {
+          setStudents(response.data.modifiedStudents);
+        } else {
+          // console.log(response.data);
+          setError(response.data.message);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
-  }, [students]); // The empty dependency array ensures that the effect runs once when the component mounts
-
-  useEffect(() => {
-    fatch();
-  }, []);
-
+    fetchStudents();
+  }, [classId]);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const handleAddStudentModal = () => {
     setShowAddStudentModal(!showAddStudentModal);
   };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="container mx-auto p-8">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Student List</h2>
-
+        <h2 className="text-3xl font-bold">Students List</h2>
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleAddStudentModal}
@@ -123,4 +118,4 @@ const ListStudent = () => {
   );
 };
 
-export default ListStudent;
+export default StudentListByClass;

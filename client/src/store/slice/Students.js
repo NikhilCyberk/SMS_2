@@ -63,7 +63,7 @@ export const studentsSlice = createSlice({
               console.error("Error fetching data:", error);
             }
           };
-          console.log("fatch called");
+          
           fetchData();
     },
 

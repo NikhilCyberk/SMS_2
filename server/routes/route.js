@@ -6,32 +6,138 @@ import {
   adminRegister,
   adminLogin,
   verifyUser,
+  getAdminDetail,
 } from "../controller/adminController.js";
-import { adminAddClass, sclassList } from "../controller/classController.js";
 import {
-  adminAddStuudent,
+  adminAddClass,
+  deleteSclass,
+  deleteSclasses,
+  getSclassStudents,
+  sclassList,
+} from "../controller/classController.js";
+import {
+  StudentRegister,
+  clearAllStudentsAttendance,
+  clearAllStudentsAttendanceBySubject,
+  deleteStudent,
+  deleteStudents,
+  deleteStudentsByClass,
+  getStudentDetail,
   getStudents,
+  removeStudentAttendance,
+  removeStudentAttendanceBySubject,
+  studentAttendance,
+  studentLogIn,
+  updateExamResult,
+  updateStudent,
 } from "../controller/studentController.js";
 import jwt from "jsonwebtoken";
 import nodemailwer from "nodemailer";
+import {
+  allSubjects,
+  classSubjects,
+  deleteSubject,
+  deleteSubjects,
+  deleteSubjectsByClass,
+  freeSubjectList,
+  subjectCreate,
+} from "../controller/subjectController.js";
+import {
+  deleteNotice,
+  deleteNotices,
+  noticeCreate,
+  noticeList,
+  updateNotice,
+} from "../controller/noticeController.js";
+import {
+  deleteTeacher,
+  deleteTeachers,
+  deleteTeachersByClass,
+  getTeacherDetail,
+  getTeachers,
+  teacherAttendance,
+  teacherLogIn,
+  teacherRegister,
+  updateTeacherSubject,
+} from "../controller/teacherCotroller.js";
+import { complainCreate, complainList } from "../controller/complainController.js";
 
-router.post("/admin/add-student", adminAddStuudent);
-
-router.get("", (req, res) => {
-  return res.json({ message: "hello from server" });
-});
+// router.get("*", (req, res) => {
+//   return res.json({ message: "404: page not found" });
+// });
 
 // Admin
 router.post("/auth/signup", adminRegister);
 router.post("/auth/login", adminLogin);
+router.get("/admin/:id", getAdminDetail);
+
+// Teacher
+router.post("/teacher-reg", teacherRegister);
+router.post("/teacher-login", teacherLogIn);
+router.get("/teachers/:id", getTeachers);
+router.get("/teacher/:id", getTeacherDetail);
+router.delete("/teachers/:id", deleteTeachers);
+router.delete("/teachers-class/:id", deleteTeachersByClass);
+router.delete("/teacher/:id", deleteTeacher);
+router.put("/teacher-subject", updateTeacherSubject);
+router.post("/teacher-attendance/:id", teacherAttendance);
+
+//student
+router.post("/student-register", StudentRegister); //check
+router.post("/student-login", studentLogIn); //check
+router.get("/get-students/:id", getStudents); //check
+router.get("/get-student-detail/:id", getStudentDetail); //error
+router.delete("/students/:id", deleteStudents);
+router.delete("/students-class/:id", deleteStudentsByClass);
+router.delete("/student/:id", deleteStudent);
+router.put("/student/:id", updateStudent);
+router.put("/update-exam-result/:id", updateExamResult);
+router.put("/student-attendance/:id", studentAttendance);
+router.put(
+  "/remove-all-students-sub-atten/:id",
+  clearAllStudentsAttendanceBySubject
+);
+router.put("/remove-all-students-atten/:id", clearAllStudentsAttendance);
+router.put("/remove-student-sub-atten/:id", removeStudentAttendanceBySubject);
+router.put("/remove-student-atten/:id", removeStudentAttendance);
+
 // router.post("/add-teacher", adminAddTeacher);
-router.post("/add-class", adminAddClass);
 
-router.get("/get-class/:id", sclassList);
+//class
+router.post("/add-class", adminAddClass); //check
+router.get("/get-class/:id", sclassList); //check
+router.get("/class/Students/:id", getSclassStudents);
+router.delete("/sclasses/:id", deleteSclasses);
+router.delete("/sclass/:id", deleteSclass);
 
-router.get("/get-students/:id", getStudents);
+//subject
+router.post("/subject-create", subjectCreate); //checked
+router.get("/all-subjects/:id", allSubjects); //checked
+router.get("/class-subjects/:id", classSubjects); //checked
+router.get("/free-subject-list/:id", freeSubjectList);
+router.delete("/Subject/:id", deleteSubject);
+router.delete("/Subjects/:id", deleteSubjects);
+router.delete("/SubjectsClass/:id", deleteSubjectsByClass);
 
-router.post("/admin/add-stuudent", adminAddStuudent);
+// Complain
+
+router.post("/complain-create", complainCreate);
+router.get("/complain-list/:id", complainList);
+
+// Notice
+
+router.post("/notice-create", noticeCreate);
+router.get("/notice-list/:id", noticeList);
+router.delete("/notices/:id", deleteNotices);
+router.delete("/notice/:id", deleteNotice);
+router.put("/notice/:id", updateNotice);
+
+
+
+
+
+
+// router.post("/admin/add-student", adminAddStuudent);
 
 // const verifyUser = async (req, res, next) => {
 //   try {
@@ -152,10 +258,10 @@ router.post("/admin/add-stuudent", adminAddStuudent);
 //   }
 // });
 
-// router.get("/verify", verifyUser, (req, res) => {
-//   //   console.log("verify");
-//   res.json({ status: true, message: "authenticated" });
-// });
+router.get("/verify", verifyUser, (req, res) => {
+  //   console.log("verify");
+  res.json({ status: true, message: "authenticated" });
+});
 
 // router.get("/getUsername", verifyUser, async (req, res) => {
 //   // Access the authenticated user's information from req.user

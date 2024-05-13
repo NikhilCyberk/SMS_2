@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./AdminLogin.css";
+import Navigation1 from "../../bar/Navigation1";
 
 const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
 
   axios.defaults.withCredentials = true;
 
@@ -27,123 +27,89 @@ const AdminLogin = () => {
         localStorage.setItem("role", response.data.role);
         localStorage.setItem("_id", response.data._id);
         if (response.data.status) {
-          navigate("/admin-dashboard");
+          navigate("/admin");
         }
       })
       .catch((error) => {
-        confirm(error);
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set isLoading to false after the request is completed
       });
   };
 
   return (
-
     <>
-      {/* <div className="h-screen w-screen bg-white-50 flex justify-center items-center bg-gradient-to-br from-blue-500 via-blue-400 to-blue-300"> */}
-        <div className=" bg-white p-8 rounded-md shadow-m w-auto h-auto md:w-[30%]">
-          <h1 className="text-3xl font-bold mb-4 text-gray-800">Admin Login</h1>
-          <form onSubmit={handleSubmit}>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600 mt-4"
-            >
-              Email
-            </label>
-            <input
-              type="text"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-            />
+      <Navigation1 />
+      <section className="  md:py-52  dark:bg-[#0b1727] text-zinc-900 dark:text-white relative z-[1] flex items-center overflow-hidden">
+        <div
+          className="absolute  top-0 right-0 bottom-0 bg-cover bg-center bg-no-repeat w-[60vw] hidden md:block -z-[1]"
+          style={{
+            backgroundImage:
+              "url(https://raw.githubusercontent.com/NikhilCyberk/SMS/main/client/src/assets/admin.png)",
+            clipPath: "polygon(30% 0, 100% 0, 100% 100%, 0% 10%)",
+            height: "80rem",
+          }}
+        >
+          <div className="absolute top-0 left-0 right-0 bottom-0 bg-teal-800 bg-opacity-20 -z-[1]" />
+        </div>
+        <div className="container  m-14  pl-[12rem]">
+          <div className="grid grid-cols-12">
+            <div className="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 ">
+              <p className="text-lg opacity-80">
+                Admin <b>Login</b>
+              </p>
+              {/* <SubscribeForm /> */}
 
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600 mt-4"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="********"
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-3 w-full border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-            />
+              <form
+                onSubmit={handleSubmit}
+                className="ezy__comingsoon13-subscription-form mt-6 "
+              >
+                <div className="flex flex-col w-full">
+                  <input
+                    className="py-4 px-5 shadow-lg dark:bg-gray-500 dark:bg-opacity-30 rounded-xl placeholder:text-lg focus:outline-none w-full mb-4"
+                    type="text"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <input
+                    className="py-4 px-5 shadow-lg dark:bg-gray-500 dark:bg-opacity-30 rounded-xl placeholder:text-lg focus:outline-none w-full mb-4"
+                    type="password"
+                    placeholder="**********"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="w-full">
+                  <button
+                    type="submit"
+                    className="py-3 px-5 font-semibold bg-blue-600 border border-blue-600 text-white rounded-xl hover:bg-opacity-90 hover:border-opacity-90 duration-300 w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Loading..." : "Login"}
+                  </button>
+                </div>
+                <Link
+                  to="/authorization/forgot-password"
+                  className="text-blue-500"
+                >
+                  Forgot Password
+                </Link>
 
-            <button
-              type="submit"
-              className="mt-6 bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              Login
-            </button>
-            <div className="mt-4">
-              <Link to="/authorization/forgot-password" className="text-blue-500">
-                Forgot Password
-              </Link>
+                <p className="mt-8 text-gray-600">
+                  Don't Have an Account?{" "}
+                  <Link to="/signup" className="text-blue-500">
+                    Signup
+                  </Link>
+                </p>
+              </form>
             </div>
-            <p className="mt-8 text-gray-600">
-              Don't Have an Account?{" "}
-              <Link to="/authorization/signup" className="text-blue-500">
-                Signup
-              </Link>
-            </p>
-          </form>
-        {/* </div> */}
-      </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
 
 export default AdminLogin;
-
-
-//  <div className="container max-w-full max-h-full p-4 bg-blue-100">
-//       <div className="container max-w-full max-h-full relative overflow-hidden bg-lightblue">
-//         <div className="max-w-md mx-auto bg-lime-400 p-8 rounded-md shadow-md mt-[10rem]">
-//           <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
-//           <form onSubmit={handleSubmit}>
-//             <label
-//               htmlFor="email"
-//               className="block text-sm font-medium text-gray-600 mt-4"
-//             >
-//               Email
-//             </label>
-//             <input
-//               type="text"
-//               placeholder="Email"
-//               onChange={(e) => setEmail(e.target.value)}
-//               className="mt-1 p-2 w-full border rounded-md"
-//             />
-
-//             <label
-//               htmlFor="password"
-//               className="block text-sm font-medium text-gray-600 mt-4"
-//             >
-//               Password
-//             </label>
-//             <input
-//               type="password"
-//               placeholder="********"
-//               onChange={(e) => setPassword(e.target.value)}
-//               className="mt-1 p-2 w-full border rounded-md"
-//             />
-
-//             <button
-//               type="submit"
-//               className="mt-4 bg-blue-500 text-white p-2 rounded-md"
-//               >
-//               Login
-//               </button>
-//               <div>
-//               <Link to="/forgot-password" className="text-blue-500">
-//               Forgot Password
-//               </Link>
-//               </div>
-//               <p className="mt-8 text-gray-600">
-//               Dont't Have Account{"  "}
-//               <Link to="/signup" className="text-blue-500">
-//               Signup
-//               </Link>
-//               </p>
-//               </form>
-//               </div>
-//               </div>
-//             </>

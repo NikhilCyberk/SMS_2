@@ -60,39 +60,57 @@ export const adminRegister = async (req, res) => {
 };
 
 export const adminLogin = async (req, res) => {
-  let { email, password } = req.body;
-  const user = await Admin.findOne({ email });
-  console.log(user);
-  console.log("post /login");
-  console.log(req.body);
-  if (!user) {
-    return res.json({ message: "user not found" });
-  }
+  try {
+    let { email, password } = req.body;
 
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword) {
-    return res.json({
-      message: "password is incorrect",
+    const user = await Admin.findOne({ email }).maxTimeMS(30000);
+    console.log(user, 4444444);
+    console.log("post /login");
+    console.log(req.body);
+    if (!user) {
+      return res.json({ message: "user not found" });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.json({
+        message: "password is incorrect",
+      });
+    }
+
+    const token = jwt.sign({ username: user.username }, process.env.KEY, {
+      expiresIn: "1h",
     });
+    console.log(token);
+    res.cookie("token", token, { httpOnly: true, maxAge: 360000 });
+    return res.json({
+      status: true,
+      message: "login successfully",
+      email: email,
+      token: token,
+      user: user.name,
+      schoolName: user.schoolName,
+      role: user.role,
+      _id: user._id,
+    });
+  } catch (err) {
+    console.log(err, 253);
+    res.status(500).json(err);
   }
-
-  const token = jwt.sign({ username: user.username }, process.env.KEY, {
-    expiresIn: "1h",
-  });
-  console.log(token);
-  res.cookie("token", token, { httpOnly: true, maxAge: 360000 });
-  return res.json({
-    status: true,
-    message: "login successfully",
-    email: email,
-    token: token,
-    user: user.name,
-    schoolName: user.schoolName,
-    role: user.role,
-    _id: user._id,
-  });
 };
 
-
+export const getAdminDetail = async (req, res) => {
+  try {
+    let admin = await Admin.findById(req.params.id);
+    if (admin) {
+      admin.password = undefined;
+      res.send(admin);
+    } else {
+      res.send({ message: "No admin found" });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
 // module.exports = { adminRegister };
