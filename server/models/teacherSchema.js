@@ -21,7 +21,7 @@ const teacherSchema = new mongoose.Schema(
     },
     school: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "admin",
+      ref: "Admin",
       required: true,
     },
     teachSubject: {

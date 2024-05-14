@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import AddStudentForm from "../admin/Layout/AddStudentForm";
 const StudentListByClass = () => {
-  const { classId } = useParams();
+  const { classId, className } = useParams();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ const StudentListByClass = () => {
         const response = await axios.get(
           `http://localhost:3000/class/Students/${classId}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.status) {
           setStudents(response.data.modifiedStudents);
         } else {
@@ -69,9 +69,7 @@ const StudentListByClass = () => {
                 >
                   <td className="border px-4 py-2">{student.name}</td>
                   <td className="border px-4 py-2">{student.rollNum}</td>
-                  <td className="border px-4 py-2">
-                    {student.sclassName.sclassName}
-                  </td>
+                  <td className="border px-4 py-2">{className}</td>
                   <td className="border px-4 py-2">
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"

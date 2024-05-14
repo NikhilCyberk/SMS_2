@@ -104,7 +104,7 @@ const ListClass = () => {
                     </td>
                     <td className="border px-4 py-2">
                       <Link
-                        to={`/admin/class-student/${classItem._id}`}
+                        to={`/admin/class-student/${classItem._id}/${classItem.sclassName}`}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                       >
                         View
@@ -131,9 +131,8 @@ const ListClass = () => {
         {/* Add Teacher Modal */}
         {showAddClassModal && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-blue-500 rounded-lg shadow-lg p-8">
-              <h2 className="text-xl font-bold mb-4">Add Class</h2>
-              <AddClass />
+            <div className="bg-white rounded-lg shadow-lg p-8 max-w-md">
+              <h2 className="text-xl font-bold mb-4">Add Class</h2> <AddClass />
               <button
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 onClick={handleAddClassModal}

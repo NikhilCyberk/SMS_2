@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 
 const Topbar = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
 
   return (
     <div className="w-screen h-screen">
@@ -37,10 +37,17 @@ const Topbar = () => {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className={`h-auto mt-16 w-1/2 bg-gray-700 fixed z-30 top-0 left-0 ease-in-out duration-300 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:z-50 md:w-64 md:h-full`}
+      >
+        <SideB setShowSidebar={setShowSidebar} />
+      </div> */}
+      <div
+        className={`fixed top-16 left-0 z-50 h-full overflow-y-auto bg-gray-700 transition-all duration-300 ${
+          showSidebar ? "w-64" : "w-16"
+        } `}
       >
         <SideB setShowSidebar={setShowSidebar} />
       </div>

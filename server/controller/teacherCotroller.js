@@ -92,6 +92,7 @@ export const getTeacherDetail = async (req, res) => {
       res.send({ message: "No teacher found" });
     }
   } catch (err) {
+    console.log(err, 22222222);
     res.status(500).json(err);
   }
 };

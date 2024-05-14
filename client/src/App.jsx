@@ -25,8 +25,10 @@ import TeacherLogin from "./components/pages/admin/TeacherLogin";
 import StudentLogin from "./components/pages/admin/StudentLogin";
 import AddTeacherForm from "./components/pages/admin/AddTeacherForm";
 import ListTeacher from "./components/pages/admin/Layout/ListTeacher";
-import ComplainComponent from "./components/pages/admin/ComplainComponent";
+import ComplainComponent from "./components/pages/admin/ComplaintList";
 import StudentListByClass from "./components/pages/admin/StudentListByClass";
+import ComplaintList from "./components/pages/admin/ComplaintList";
+import NoticeList from "./components/pages/admin/NoticeList";
 
 function App() {
   const id = localStorage.getItem("_id");
@@ -53,16 +55,17 @@ function App() {
           <Route index element={<AdminDashboard />} />
           {/* <Route path="admin-profile" element={<AdminProfile />} /> */}
           <Route path="admin-add-class" element={<AddClass />} />
-          <Route path="admin-list-class/:id" element={<ListClass  />} />
+          <Route path="admin-list-class/:id" element={<ListClass />} />
           <Route path="admin-add-student" element={<AddStudentForm />} />
           <Route path="list-student/:id" element={<ListStudent />} />
           <Route path="add-subject" element={<AddSubject />} />
           <Route path="admin-add-teacher" element={<AddTeacherForm />} />
           <Route path="list-subject/:id" element={<SubjectList id={id} />} />
           <Route path="list-teacher/:id" element={<ListTeacher id={id} />} />
-          <Route path="list-complain" element={<ComplainComponent />} />
+          <Route path="list-complain/:id" element={<ComplaintList />} />
+          <Route path="list-notice/:id" element={<NoticeList />} />
           <Route
-            path="class-student/:classId"
+            path="class-student/:classId/:className"
             element={<StudentListByClass />}
           />
         </Route>
