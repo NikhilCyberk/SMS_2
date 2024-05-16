@@ -1,23 +1,23 @@
-// import React from "react";
-
-// const ContentContainer = ({ children }) => {
-//   return (
-//     <div className="root-container h-full w-full fixed top-[70px] border-black border-5  bg-orange-500 md:left-[250px] p-5  ">
-//       <div className="h-[80%] w-full md:w-[85%] border-4 border-blue-950 bg-gradient-to-b from-blue-100 via-blue-200 to-blue-300 ">
-//         {children}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ContentContainer;
-
 import React from "react";
 
-const ContentContainer = ({ children }) => {
+const ContentContainer = ({ children, showSidebar }) => {
   return (
-    <div className="root-container h-full w-full fixed top-[4rem] left-0 bg-teal-500 border-blue-400 border-5 md:left-[250px] pl-8 pt-8">
-      <div className="h-[80%] w-full md:w-[85%] bg-white rounded-lg shadow-md">
+    // <div
+    //   className={`root-container h-screen w-screen fixed top-16 bg-gray-900 transition-all duration-300 ${
+    //     showSidebar ? "left-64" : "left-20"
+    //   } pl-2 pt-2`}
+    // >
+    //   <div className="h-[90%] w-full md:w-[85%] border-4 rounded-2xl border-blue-500 bg-gray-200">
+    //     {/* <div className="h-[80%] w-full md:w-[85%] bg-white rounded-lg shadow-md"> */}
+    //     {children}
+    //   </div>
+    // </div>
+    <div
+      className={`root-container h-screen w-screen fixed top-16 bg-gray-900 transition-all duration-300 ${
+        showSidebar ? "left-64" : "left-20"
+      } pl-2 pt-2 md:pl-4 md:pt-4`}
+    >
+      <div className="h-[90%] w-full md:w-[85%] border-4 rounded-2xl border-blue-500 bg-gray-200">
         {children}
       </div>
     </div>

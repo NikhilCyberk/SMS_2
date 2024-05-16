@@ -67,7 +67,7 @@ const ListClass = () => {
   };
 
   return (
-    <div className="  bg-gray-100">
+    <div className="container mx-auto">
       <div className=" p-8 mt-0 ">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-bold">Classes List</h2>

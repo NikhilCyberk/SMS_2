@@ -1,10 +1,18 @@
 import AdminCard from "./admin/AdminCard";
 import TeacherCard from "./admin/TeacherCard";
 import StudentCard from "./admin/StudentCard";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const ChooseUser = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (role === "admin") {
+      navigate("/admin");
+    }
+  }, [navigate]);
+
   return (
     <section className="bg-gradient-to-r from-blue-600 to-teal-500  md:py-24  text-zinc-900 dark:text-white relative overflow-hidden z-10">
       <div className="container m-2 mx-auto">

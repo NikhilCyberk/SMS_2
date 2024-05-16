@@ -18,7 +18,7 @@ const AdminProfile = ({ id, email, role, schoolName }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/admin/${id}`);
-        console.log(response);
+        // console.log(response);
         if (response.status !== 200) {
           navigate("/login");
           // props.setVerifie}
@@ -30,6 +30,10 @@ const AdminProfile = ({ id, email, role, schoolName }) => {
     fetchData();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <>
       <div className=" group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:h-44 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-blue-600 via-lime-200 to-lime-400 before:absolute before:top-0 w-80 h-72 relative bg-slate-50 flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
@@ -50,12 +54,12 @@ const AdminProfile = ({ id, email, role, schoolName }) => {
           >
             Edit
           </Link>
-          <Link
-            to={"#"}
+          <button
             className="bg-red-700 px-4 py-1 text-slate-50 rounded-md z-10 hover:scale-125 transition-all duration-500 hover:bg-red-500"
+            onClick={handleLogout}
           >
             Logout
-          </Link>
+          </button>
         </div>
       </div>
     </>

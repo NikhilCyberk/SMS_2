@@ -7,6 +7,7 @@ import { faker } from "@faker-js/faker";
 
 export const subjectCreate = async (req, res) => {
   try {
+    console.log(req.body,223232323);
     const subjects = req.body.subjects.map((subject) => ({
       subName: subject.subName,
       subCode: subject.subCode,

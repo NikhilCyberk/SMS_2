@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navigation1 from "../../bar/Navigation1";
 
@@ -19,7 +19,7 @@ const AdminLogin = () => {
         password,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("email", response.data.email);
         localStorage.setItem("user", response.data.user);
@@ -37,7 +37,12 @@ const AdminLogin = () => {
         setIsLoading(false); // Set isLoading to false after the request is completed
       });
   };
-
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (role === "admin") {
+      navigate("/admin");
+    }
+  }, [navigate]);
   return (
     <>
       <Navigation1 />
