@@ -11,7 +11,7 @@ const AdminLayout = () => {
     <>
   
 
-      <div className="flex">
+      <div className="flex bg-gray-900">
       <Topbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <SideB showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <ContentContainer showSidebar={showSidebar}>

@@ -7,7 +7,7 @@ import { faker } from "@faker-js/faker";
 
 export const subjectCreate = async (req, res) => {
   try {
-    console.log(req.body,223232323);
+    console.log(req.body, 223232323);
     const subjects = req.body.subjects.map((subject) => ({
       subName: subject.subName,
       subCode: subject.subCode,
@@ -47,7 +47,7 @@ export const allSubjects = async (req, res) => {
     if (subjects.length > 0) {
       res.send(subjects);
     } else {
-      res.send({ message: "No subjects found" });
+      res.status(201).send({ message: "No subjects found" });
     }
   } catch (err) {
     console.log(err, 500);
@@ -56,6 +56,7 @@ export const allSubjects = async (req, res) => {
 };
 
 export const classSubjects = async (req, res) => {
+  console.log(req.params.id, 2222);
   try {
     let subjects = await Subject.find({ sclassName: req.params.id });
     if (subjects.length > 0) {
@@ -161,7 +162,6 @@ export const deleteSubjectsByClass = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 
 // import mongoose from "mongoose";
 

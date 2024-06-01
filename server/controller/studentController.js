@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 export const StudentRegister = async (req, res) => {
+  console.log(req.body, 154154154);
   try {
     // Validate incoming data (e.g., check required fields)
 
@@ -19,7 +20,7 @@ export const StudentRegister = async (req, res) => {
     const existingStudent = await Student.findOne({
       rollNum,
       school: adminID,
-      sclassName,
+      sclassName: sclassName,
     });
 
     if (existingStudent) {
@@ -115,10 +116,10 @@ export const getStudents = async (req, res) => {
       let modifiedStudents = students.map((student) => {
         return { ...student._doc, password: undefined };
       });
-      res.send(modifiedStudents);
+      res.status(200).send(modifiedStudents);
       // res.send(students);
     } else {
-      res.send({ message: "No students found" });
+      res.status(201).send({ message: "No students found" });
     }
     // console.log(populatedStudent);
   } catch (err) {

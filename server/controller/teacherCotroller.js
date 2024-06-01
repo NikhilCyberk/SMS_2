@@ -70,9 +70,10 @@ export const getTeachers = async (req, res) => {
       let modifiedTeachers = teachers.map((teacher) => {
         return { ...teacher._doc, password: undefined };
       });
-      res.send(modifiedTeachers);
+      console.log(modifiedTeachers, "modifiedTeachers");
+      res.status(200).send(modifiedTeachers);
     } else {
-      res.send({ message: "No teachers found" });
+      res.status(201).send({ message: "No teachers found" });
     }
   } catch (err) {
     res.status(500).json(err);
@@ -81,6 +82,7 @@ export const getTeachers = async (req, res) => {
 
 export const getTeacherDetail = async (req, res) => {
   try {
+    console.log(req.params.id, 400);
     let teacher = await Teacher.findById(req.params.id)
       .populate("teachSubject", "subName sessions")
       .populate("school", "schoolName")
@@ -188,17 +190,19 @@ export const deleteTeachersByClass = async (req, res) => {
 };
 
 export const teacherAttendance = async (req, res) => {
+  console.log(req.body, 1111);
   const { status, date } = req.body;
 
   try {
     const teacher = await Teacher.findById(req.params.id);
 
     if (!teacher) {
-      return res.send({ message: "Teacher not found" });
+      return res.status(404).send({ message: "Teacher not found" });
     }
 
+    const attendanceDate = new Date(date).toDateString();
     const existingAttendance = teacher.attendance.find(
-      (a) => a.date.toDateString() === new Date(date).toDateString()
+      (record) => record.date.toDateString() === attendanceDate
     );
 
     if (existingAttendance) {
@@ -208,8 +212,12 @@ export const teacherAttendance = async (req, res) => {
     }
 
     const result = await teacher.save();
+    console.log(result, 89898989);
     return res.send(result);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Error updating attendance:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while updating attendance", error });
   }
 };

@@ -29,6 +29,8 @@ import ComplainComponent from "./components/pages/admin/ComplaintList";
 import StudentListByClass from "./components/pages/admin/StudentListByClass";
 import ComplaintList from "./components/pages/admin/ComplaintList";
 import NoticeList from "./components/pages/admin/NoticeList";
+import TeacherDetail from "./components/pages/admin/TeacherDetail";
+import ClassDetails from "./components/pages/admin/Layout/ClassDetails";
 
 function App() {
   const id = localStorage.getItem("_id");
@@ -67,6 +69,19 @@ function App() {
           <Route
             path="class-student/:classId/:className"
             element={<StudentListByClass />}
+          />
+          <Route path="class/:id/:type" element={<ClassDetails />} />
+          {/* <Route path="class/:id/subjects" element={<ClassDetails />} />
+          <Route path="class/:id/students" element={<ClassDetails />} />
+          <Route path="class/:id/teachers" element={<ClassDetails />} /> */}
+
+          {/* <Route
+            path="class-student/:classId/:className"
+            element={<StudentListByClass />}
+          /> */}
+          <Route
+            path="list-teacher/:id/:teacherId"
+            element={<TeacherDetail />}
           />
         </Route>
       </Routes>

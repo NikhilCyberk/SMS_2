@@ -44,7 +44,7 @@ const AddClass = () => {
           placeholder="Enter class name"
           value={sclassName}
           onChange={handleInputChange}
-          className="w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 mb-4 border text-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           onClick={handleButton1CreateClass}

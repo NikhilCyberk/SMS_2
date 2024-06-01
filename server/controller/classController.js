@@ -4,7 +4,7 @@ import { Student } from "../models/studentSchema.js";
 // const Teacher = require("../models/teacherSchema.js");
 
 export const adminAddClass = async (req, res) => {
-  //   console.log(req.body);
+    // console.log(req.body,131321);
   try {
     const sclass = new Sclass({
       sclassName: req.body.sclassName,
