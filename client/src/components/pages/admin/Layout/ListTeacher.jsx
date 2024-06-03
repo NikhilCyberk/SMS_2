@@ -435,13 +435,15 @@ const ListTeacher = () => {
                   className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"}
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {teacher.name}
+                    {teacher && teacher.name ? teacher.name : "Not Assigned"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {teacher.email}
+                    {teacher && teacher.email ? teacher.email : "Not Assigned"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {teacher.teachSubject.subName}
+                    {teacher.teachSubject && teacher.teachSubject.subName
+                      ? teacher.teachSubject.subName
+                      : "Not Assigned"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {teacher.teachSclass && teacher.teachSclass.sclassName

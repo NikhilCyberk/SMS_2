@@ -157,10 +157,10 @@ const ClassDetails = () => {
           axios.get(`http://localhost:3000/get-students/${schoolId}`),
           axios.get(`http://localhost:3000/teachers/${schoolId}`),
         ]);
-        console.log(
-          teachers.data.map((t) => t.teachSclass).filter((a) => a._id === id),
-          "teachers.data.map((teacher) => teacher.teachSclass)"
-        );
+        // console.log(
+        //   teachers.data.map((t) => t.teachSclass).filter((a) => a._id === id),
+        //   "teachers.data.map((teacher) => teacher.teachSclass)"
+        // );
         const filteredStudents = students.data.filter(
           (student) => student.sclassName._id === id
         );

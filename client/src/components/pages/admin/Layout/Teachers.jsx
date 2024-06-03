@@ -3,7 +3,7 @@ import React from "react";
 
 const Teachers = ({ teachers }) => {
   return (
-    <div className="bg-gray-900 text-white p-8">
+    <div className="bg-gray-900 text-white p-8 h-screen">
       <h2 className="text-2xl font-bold mb-4">Teachers</h2>
       {teachers.length > 0 ? (
         <div className="overflow-x-auto">
