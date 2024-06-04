@@ -75,7 +75,7 @@ const SubjectList = ({ id }) => {
         <div className="overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
-              <tr className="bg-gray-800 text-white">
+              <tr className="bg-gray-800 text-teal-300">
                 <th className="px-4 py-2">Subject Name</th>
                 <th className="px-4 py-2">Subject Code</th>
                 <th className="px-4 py-2">Session</th>
@@ -89,20 +89,20 @@ const SubjectList = ({ id }) => {
                   key={index}
                   className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"}
                 >
-                  <td className="border px-4 py-2">
+                  <td className=" px-4 py-2">
                     {subject.subName || "N/A"}
                   </td>
-                  <td className="border px-4 py-2">
+                  <td className=" px-4 py-2">
                     {subject.subCode || "N/A"}
                   </td>
-                  <td className="border px-4 py-2">
+                  <td className=" px-4 py-2">
                     {subject.sessions || "N/A"}
                   </td>
-                  <td className="border px-4 py-2">
+                  <td className=" px-4 py-2">
                     {subject.sclassName ? subject.sclassName.sclassName : "N/A"}
                   </td>
 
-                  <td className="border px-4 py-2 flex justify-center">
+                  <td className=" px-4 py-2 flex justify-center">
                     <div className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full cursor-pointer transition-colors duration-300 mr-2">
                       <FaEye className="text-lg" />
                     </div>

@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 
 const SideB = ({ showSidebar }) => {
+  const role = localStorage.getItem("role");
+  const user = localStorage.getItem("user");
   const id = localStorage.getItem("_id");
   const buttonCss = `flex items-center px-4 py-3 text-gray-100 transition-colors duration-300 transform rounded-lg hover:text-white hover:bg-blue-600 aria-[current=page]:text-white aria-[current=page]:bg-blue-700 `;
 
@@ -123,9 +125,9 @@ const SideB = ({ showSidebar }) => {
           <figcaption className="sr-only">John Doe, Web Developer</figcaption>
         </figure>
         <h2 className="mt-4 text-xl font-bold text-indigo-600 dark:text-indigo-400">
-          John Doe
+          {user}
         </h2>
-        <p className="mb-4 text-gray-600 dark:text-gray-300">Web Developer</p>
+        <p className="mb-4 text-gray-600 dark:text-gray-300">{role}</p>
         <div className="flex items-center justify-center">
           <a
             href="#"
