@@ -16,7 +16,7 @@ const TeacherDetail = () => {
   const [error, setError] = useState(null);
 
   const { teacherId } = useParams();
-  // console.log(teacherId, 313213);
+
 
   useEffect(() => {
     const fetchTeacherDetail = async () => {

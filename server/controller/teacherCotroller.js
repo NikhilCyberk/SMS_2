@@ -94,7 +94,6 @@ export const getTeacherDetail = async (req, res) => {
       res.send({ message: "No teacher found" });
     }
   } catch (err) {
-    console.log(err, 22222222);
     res.status(500).json(err);
   }
 };
@@ -205,6 +204,8 @@ export const teacherAttendance = async (req, res) => {
       (record) => record.date.toDateString() === attendanceDate
     );
 
+    console.log(attendanceDate, 235632);
+
     if (existingAttendance) {
       existingAttendance.status = status;
     } else {
@@ -212,7 +213,6 @@ export const teacherAttendance = async (req, res) => {
     }
 
     const result = await teacher.save();
-    console.log(result, 89898989);
     return res.send(result);
   } catch (error) {
     console.error("Error updating attendance:", error);

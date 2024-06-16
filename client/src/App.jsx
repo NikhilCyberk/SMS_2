@@ -35,12 +35,10 @@ import ClassDetails from "./components/pages/admin/Layout/ClassDetails";
 function App() {
   const id = localStorage.getItem("_id");
   const token = localStorage.getItem("token");
-  // console.log(id);
-  // const id = localStorage.getItem("_id");
+
 
   return (
     <>
-      {/* {/* <Topbar /> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/chooseuser" element={<ChooseUser />} />

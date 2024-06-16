@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import classImg from "../../../../../public/class.svg";
 
 const AddClass = () => {
   const [sclassName, setSclassName] = useState("");
@@ -16,7 +17,6 @@ const AddClass = () => {
       .post("http://localhost:3000/add-class", {
         sclassName,
         adminID: localStorage.getItem("_id"),
-        // localStorage.getItem("schoolName")
       })
       .then((response) => {
         setMessage(response.data.message || "Class added successfully");
@@ -26,35 +26,32 @@ const AddClass = () => {
         setMessage("Error adding class");
         console.log(error);
       });
-
-    // Logic for the first button
-    console.log("Button 1 clicked");
-  };
-
-  const handleButton2Click = () => {
-    // Logic for the second button
-    console.log("Button 2 clicked");
   };
 
   return (
-    <div className="flex justify-center items-center ">
-      <div className="bg-white p-4 rounded shadow border border-gray-300">
-        <input
-          type="text"
-          placeholder="Enter class name"
-          value={sclassName}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-4 border text-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          onClick={handleButton1CreateClass}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-        >
-          Create Class
-        </button>
-        {message && <p>{message}</p>}
+    <>
+      <div className="bg-gray-900 p-8 rounded shadow  ">
+        <img src={classImg} alt="Class Image" />
       </div>
-    </div>
+      <div className="flex justify-center items-center ">
+        <div className=" p-4 rounded shadow ">
+          <input
+            type="text"
+            placeholder="Enter class name"
+            value={sclassName}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-4 border text-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={handleButton1CreateClass}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+          >
+            Create Class
+          </button>
+          {message && <p>{message}</p>}
+        </div>
+      </div>
+    </>
   );
 };
 

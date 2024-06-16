@@ -14,11 +14,10 @@ const StudentListByClass = () => {
         const response = await axios.get(
           `http://localhost:3000/class/Students/${classId}`
         );
-        // console.log(response.data);
+       
         if (response.data.status) {
           setStudents(response.data.modifiedStudents);
         } else {
-          // console.log(response.data);
           setError(response.data.message);
         }
       } catch (err) {

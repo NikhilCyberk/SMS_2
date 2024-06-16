@@ -56,7 +56,7 @@ export const allSubjects = async (req, res) => {
 };
 
 export const classSubjects = async (req, res) => {
-  console.log(req.params.id, 2222);
+  
   try {
     let subjects = await Subject.find({ sclassName: req.params.id });
     if (subjects.length > 0) {

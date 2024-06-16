@@ -1,10 +1,10 @@
 import { Sclass } from "../models/sclassSchema.js";
 import { Student } from "../models/studentSchema.js";
-// const Subject = require("../models/subjectSchema.js");
-// const Teacher = require("../models/teacherSchema.js");
+import { Subject } from "../models/subjectSchema.js";
+import { Teacher } from "../models/teacherSchema.js";
 
 export const adminAddClass = async (req, res) => {
-    // console.log(req.body,131321);
+  // console.log(req.body,131321);
   try {
     const sclass = new Sclass({
       sclassName: req.body.sclassName,
@@ -62,7 +62,7 @@ export const deleteSclass = async (req, res) => {
   try {
     console.log(req.params.id, 111222);
     const deletedClass = await Sclass.findByIdAndDelete(req.params.id);
-    console.log(deletedClass,2233322);
+    console.log(deletedClass, 2233322);
     if (!deletedClass) {
       return res.send({ message: "Class not found" });
     }
@@ -92,6 +92,7 @@ export const deleteSclasses = async (req, res) => {
     const deletedTeachers = await Teacher.deleteMany({ school: req.params.id });
     res.send(deletedClasses);
   } catch (error) {
+    console.log(error, 5500);
     res.status(500).json(error);
   }
 };

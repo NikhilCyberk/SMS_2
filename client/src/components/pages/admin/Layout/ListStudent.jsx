@@ -1,16 +1,30 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { remove, fatch } from "../../../../store/slice/Students";
+import {
+  remove,
+  fetchStudents,
+} from "../../../../store/slice/studentsSlice.js";
+import { confirmAlert } from "react-confirm-alert";
+import { FaPlus } from "react-icons/fa";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import AddStudentForm from "./AddStudentForm";
-import { FaPlus, FaEye, FaTrash, FaEdit } from "react-icons/fa";
+import EditStudentForm from "./EditStudentForm";
+import Header from "../../admin/header/Header";
+import StudentTable from "../table/StudentTable";
+import Pagination from "../../admin/table/Pagination";
+import Modal from "../table/Modal";
 
 const ListStudent = () => {
   const students = useSelector((state) => state.students);
   const dispatch = useDispatch();
-
   const [studentData, setStudentData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
+  const [editStudentId, setEditStudentId] = useState(null);
 
   const id = localStorage.getItem("_id");
 
@@ -21,108 +35,138 @@ const ListStudent = () => {
           `http://localhost:3000/get-students/${id}`
         );
         setStudentData(response.data);
+        setFilteredData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    dispatch(fatch());
+    dispatch(fetchStudents());
   }, [dispatch]);
+
+  useEffect(() => {
+    const filtered = studentData.filter(
+      (student) =>
+        student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.sclassName.sclassName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1);
+  }, [searchTerm, studentData]);
+
+  const handleDeleteStudent = (studentId) => {
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this student?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            try {
+              await axios.delete(`http://localhost:3000/student/${studentId}`);
+              setStudentData((prevData) =>
+                prevData.filter((student) => student._id !== studentId)
+              );
+              setFilteredData((prevData) =>
+                prevData.filter((student) => student._id !== studentId)
+              );
+              dispatch(remove(studentId));
+            } catch (error) {
+              console.error("Error deleting student:", error);
+            }
+          },
+        },
+        { label: "No", onClick: () => {} },
+      ],
+    });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleEntriesPerPageChange = (e) => {
+    setEntriesPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
 
   const handleAddStudentModal = () => {
     setShowAddStudentModal(!showAddStudentModal);
   };
 
-  const handleDeleteStudent = (index) => {
-    dispatch(remove(index));
+  const handleEditStudent = (studentId) => {
+    setEditStudentId(studentId);
   };
 
+  const handleSaveEdit = (updatedStudent) => {
+    setStudentData((prevData) =>
+      prevData.map((student) =>
+        student._id === updatedStudent._id ? updatedStudent : student
+      )
+    );
+    setFilteredData((prevData) =>
+      prevData.map((student) =>
+        student._id === updatedStudent._id ? updatedStudent : student
+      )
+    );
+    setEditStudentId(null);
+  };
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = filteredData.slice(
+    indexOfFirstEntry,
+    indexOfLastEntry
+  );
+
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+
   return (
-    <div className="min-h-screen p-8 bg-gray-900 text-white">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Student List</h2>
-        <button
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
-          onClick={handleAddStudentModal}
-        >
-          <FaPlus className="mr-2" />
-          Add Student
-        </button>
-      </div>
-      {studentData.length === 0 ? (
-        <p className="text-gray-400">No student found.</p>
-      ) : (
-        <div className="overflow-x-auto border-4 rounded-lg border-blue-500">
-          <table className="min-w-full  bg-gray-800    shadow-lg">
-            <thead className="bg-gray-900    text-teal-300 sticky top-0">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
-                  Roll Number
-                </th>
-                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
-                  Class
-                </th>
-                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {studentData.map((student, index) => (
-                <tr
-                  key={index}
-                  className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}
-                >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {student.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {student.rollNum}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {student.sclassName.sclassName}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
-                    <button className="text-blue-500 hover:text-blue-700 transition duration-300">
-                      <FaEye className="mr-2" />
-                    </button>
-                    <button
-                      className="text-red-500 hover:text-red-700 transition duration-300"
-                      onClick={() => handleDeleteStudent(index)}
-                    >
-                      <FaTrash className="mr-2" />
-                    </button>
-                    <button className="text-green-600 hover:bg-green-700 transition duration-300">
-                      <FaEdit className="mr-2" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {showAddStudentModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-gray-800 rounded-lg shadow-lg p-8">
-            <h2 className="text-xl font-bold mb-4">Add Student</h2>
+    <div className="min-h-screen bg-gray-900 text-white">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Header
+          searchTerm={searchTerm}
+          onSearch={handleSearchChange}
+          onAdd={handleAddStudentModal}
+          itemsPerPage={entriesPerPage}
+          onItemsPerPageChange={handleEntriesPerPageChange}
+          title="Students List"
+          isDeleteAllVisible={false}
+        />
+        {filteredData.length === 0 ? (
+          <p className="text-gray-300">No student found.</p>
+        ) : (
+          <StudentTable
+            students={currentEntries}
+            onDelete={handleDeleteStudent}
+            onEdit={handleEditStudent}
+          />
+        )}
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+        {showAddStudentModal && (
+          <Modal title="Add Student" onClose={handleAddStudentModal}>
             <AddStudentForm />
-            <button
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
-              onClick={handleAddStudentModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+          </Modal>
+        )}
+        {editStudentId && (
+          <Modal title="Edit Student" onClose={() => setEditStudentId(null)}>
+            <EditStudentForm
+              studentId={editStudentId}
+              onClose={() => setEditStudentId(null)}
+              onSave={handleSaveEdit}
+            />
+          </Modal>
+        )}
+      </div>
     </div>
   );
 };
