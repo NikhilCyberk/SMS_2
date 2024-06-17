@@ -7,7 +7,7 @@ const ContentContainer = ({ children, showSidebar }) => {
         showSidebar ? "left-64" : "left-20"
       } pl-2 pt-2 md:pl-4 md:pt-4`}
     >
-      <div className="h-[90%] w-full md:w-[85%] border-4 rounded-2xl border-blue-500 bg-gray-200 overflow-y-scroll no-scrollbar mt-4 mr-4">
+      <div className="h-[90%] w-full md:w-[85%] border-4 rounded-2xl border-blue-500 bg-gray-800 overflow-y-scroll no-scrollbar mt-4 mr-4">
         {children}
       </div>
     </div>

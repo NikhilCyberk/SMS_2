@@ -17,7 +17,7 @@ const Table = ({
   onAddStudent,
   onAddSubject,
 }) => (
-  <div className="overflow-x-auto border-4 rounded-lg border-gray-700 shadow-lg">
+  <div className="overflow-x-auto border-4 rounded-lg border-blue-500 shadow-lg">
     <table className="min-w-full bg-gray-800 rounded-lg">
       <thead className="bg-gray-900 text-teal-300 sticky top-0">
         <tr>

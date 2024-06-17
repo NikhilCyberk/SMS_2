@@ -136,7 +136,7 @@ const ListStudent = () => {
           itemsPerPage={entriesPerPage}
           onItemsPerPageChange={handleEntriesPerPageChange}
           title="Students List"
-          isDeleteAllVisible={false}
+          isDeleteAllVisible={true}
         />
         {filteredData.length === 0 ? (
           <p className="text-gray-300">No student found.</p>

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import TopBar from "./TopBar";
-import Subjects from "./Subjects";
-import Students from "./Students";
-import Teachers from "./Teachers";
+// import Subjects from "./Subjects";
+import Subjects from "../table/SubjectTable";
+// import Students from "./Students";
+import Students from "../table/StudentTable";
+// import Teachers from "./Teachers";
+import Teachers from "../table/TeacherTable";
 
 const ClassDetails = () => {
   const { id, type } = useParams();
   const schoolId = localStorage.getItem("_id");
-  console.log(id, "id", schoolId, "schoolId", type, "type");
+  // console.log(id, "id", schoolId, "schoolId", type, "type");
 
   const [subject, setSubject] = useState({});
   const [student, setStudent] = useState({});
@@ -23,6 +26,15 @@ const ClassDetails = () => {
           axios.get(`http://localhost:3000/get-students/${schoolId}`),
           axios.get(`http://localhost:3000/teachers/${schoolId}`),
         ]);
+
+        console.log(
+          subjects,
+          "subjects",
+          students,
+          "students",
+          teachers,
+          "teachers"
+        );
 
         const filteredStudents = students.data.filter(
           (student) => student.sclassName._id === id
@@ -45,6 +57,10 @@ const ClassDetails = () => {
     fetchData();
   }, [id, schoolId]);
 
+  // console.log(teacher, 77888);
+  // console.log(student, 77889);
+  // console.log(subject, 77887);
+
   const handleTypeChange = (newType) => {
     setType(newType);
   };
@@ -52,19 +68,25 @@ const ClassDetails = () => {
   const renderContent = () => {
     if (type === "subjects") {
       return subject.length > 0 ? (
-        <Subjects subjects={subject} />
+        <div className="m-4 ">
+          <Subjects subjects={subject} />
+        </div>
       ) : (
         <p>No subject available</p>
       );
     } else if (type === "students") {
       return student.length > 0 ? (
-        <Students students={student} />
+        <div className="m-4">
+          <Students students={student} />
+        </div>
       ) : (
         <p>No student available</p>
       );
     } else if (type === "teachers") {
       return teacher.length > 0 ? (
-        <Teachers teachers={teacher} />
+        <div className="m-4">
+          <Teachers teachers={teacher} />
+        </div>
       ) : (
         <p>No Teacher available</p>
       );

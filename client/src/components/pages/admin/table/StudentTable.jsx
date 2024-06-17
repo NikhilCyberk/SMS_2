@@ -1,9 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaEye, FaTrash, FaEdit } from "react-icons/fa";
+import {
+  FaEye,
+  FaTrash,
+  FaEdit,
+  FaCheckSquare,
+  FaClipboardList,
+} from "react-icons/fa";
 
-const StudentTable = ({ students, onDelete, onEdit }) => (
-  <div className="overflow-x-auto border-4 rounded-lg border-gray-700 shadow-lg">
+const StudentTable = ({
+  students,
+  onDelete,
+  onEdit,
+  onTakeAttendance,
+  onProvideMarks,
+}) => (
+  <div className="overflow-x-auto border-4 rounded-lg border-blue-500 shadow-lg">
     <table className="min-w-full bg-gray-800 rounded-lg">
       <thead className="bg-gray-900 text-teal-300 sticky top-0">
         <tr>
@@ -29,10 +41,14 @@ const StudentTable = ({ students, onDelete, onEdit }) => (
               index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"
             } transition duration-300 hover:bg-gray-600`}
           >
-            <td className="px-6 py-4 whitespace-nowrap">{student.name}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{student.rollNum}</td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              {student.sclassName.sclassName}
+            <td className="px-6 py-4 whitespace-nowrap text-white">
+              {student.name || "N/A"}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-white">
+              {student.rollNum || "N/A"}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap text-white">
+              {student.sclassName.sclassName || "N/A"}
             </td>
             <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
               <Link
@@ -55,6 +71,20 @@ const StudentTable = ({ students, onDelete, onEdit }) => (
               >
                 <FaEdit size={20} />
                 <span className="ml-1">Edit</span>
+              </button>
+              <button
+                className="text-yellow-500 hover:text-yellow-700 transition duration-300 flex items-center"
+                onClick={() => onTakeAttendance(student._id)}
+              >
+                <FaCheckSquare size={20} />
+                <span className="ml-1">Attendance</span>
+              </button>
+              <button
+                className="text-purple-500 hover:text-purple-700 transition duration-300 flex items-center"
+                onClick={() => onProvideMarks(student._id)}
+              >
+                <FaClipboardList size={20} />
+                <span className="ml-1">Marks</span>
               </button>
             </td>
           </tr>
