@@ -32,14 +32,14 @@ const ClassDetails = () => {
         setStudent(students.data.modifiedStudents);
         setTeacher(teachers.data);
 
-        console.log(
-          // subjects,
-          // "subjects",
-          students,
-          "students"
-          // teachers,
-          // "teachers"
-        );
+        // console.log(
+        //   // subjects,
+        //   // "subjects",
+        //   students,
+        //   "students"
+        //   // teachers,
+        //   // "teachers"
+        // );
 
         // const filteredStudents = students.data.filter(
         //   (student) => student.sclassName._id === id

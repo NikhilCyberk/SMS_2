@@ -20,7 +20,7 @@ const AdminSignup = () => {
         schoolName,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status) {
           confirm(response.data.message);
           navigate("/login");

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import studentImg from "../../../../../public/student.svg";
+import studentImg from "../../../../public/student.svg";
 
-const AddStudentForm = () => {
-  const [name, setName] = useState("");
-  const [rollNum, setRollNum] = useState("");
-  const [sclassName, setsclassName] = useState("");
-  const [password, setPassword] = useState("");
-  const [classes, setClasses] = useState([]);
+const EditStudentForm = ({ studentId, onClose, onSave }) => {
+  const [studentData, setStudentData] = useState({
+    name: "",
+    rollNum: "",
+    password: "",
+    sclassName: "",
+  });
   const id = localStorage.getItem("_id");
+  const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     axios
@@ -21,25 +23,37 @@ const AddStudentForm = () => {
       });
   }, [id]);
 
-  const onSubmit = async (e) => {
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/get-student-detail/${studentId}`
+        );
+        console.log(response.data, 8989898);
+        setStudentData(response.data);
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+      }
+    };
+    fetchStudent();
+  }, [studentId]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setStudentData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/student-register",
-        {
-          name,
-          rollNum,
-          sclassName,
-          password,
-          adminID: id,
-          role: "Student",
-        }
+      const response = await axios.put(
+        `http://localhost:3000/student/${studentId}`,
+        studentData
       );
-      alert(response.data.message);
-      // Add success handling or navigation logic here
+      onSave(response.data);
+      onClose();
     } catch (error) {
-      console.error("Error adding student:", error);
-      // Add error handling logic, e.g., show error message to the user
+      console.error("Error updating student:", error);
     }
   };
 
@@ -50,7 +64,7 @@ const AddStudentForm = () => {
       </div>
       <div className=" bg-gray-800 rounded-xl shadow-lg p-2 mb-2 ">
         <div className="grid grid-cols-1 md:grid-cols- lg:grid-cols-1 gap-6">
-          <form onSubmit={onSubmit} className="text-white">
+          <form onSubmit={handleSubmit} className="text-white">
             <label
               htmlFor="name"
               className="block font-medium mb-2 text-gray-300"
@@ -59,10 +73,9 @@ const AddStudentForm = () => {
             </label>
             <input
               type="text"
-              id="name"
-              placeholder="Student Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={studentData.name}
+              onChange={handleChange}
               className="w-full bg-gray-700 text-white border-gray-600 p-2 mb-4 focus:outline-none rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               required
             />
@@ -75,10 +88,9 @@ const AddStudentForm = () => {
             </label>
             <input
               type="number"
-              id="rollNum"
-              placeholder="Roll No."
-              value={rollNum}
-              onChange={(e) => setRollNum(e.target.value)}
+              name="rollNum"
+              value={studentData.rollNum}
+              onChange={handleChange}
               className="w-full bg-gray-700 text-white border-gray-600 p-2 mb-4 focus:outline-none rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               required
             />
@@ -87,30 +99,32 @@ const AddStudentForm = () => {
               htmlFor="password"
               className="block font-medium mb-2 text-gray-300"
             >
-              Password:
+              Password: Do not edit password
             </label>
             <input
               type="password"
-              id="password"
-              placeholder="*********"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={studentData.password}
+              onChange={handleChange}
               className="w-full bg-gray-700 text-white border-gray-600 p-2 mb-4 focus:outline-none rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              required
+              disabled
             />
 
             <label
-              htmlFor="className"
+              htmlFor="sclassName"
               className="block font-medium mb-2 text-gray-300"
             >
               Class:
             </label>
             <select
-              id="className"
-              value={sclassName}
-              onChange={(e) => setsclassName(e.target.value)}
+              id="sclassName"
+              name="sclassName"
+              value={studentData.sclassName}
+              onChange={handleChange}
               className="w-full bg-gray-700 text-white border-gray-600 p-2 mb-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              required
             >
-              <option value={null}>Select a class</option>
               {classes.map((classItem) => (
                 <option key={classItem._id} value={classItem._id}>
                   {classItem.sclassName}
@@ -118,12 +132,8 @@ const AddStudentForm = () => {
               ))}
             </select>
 
-            <button
-              type="submit"
-              className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600 focus:outline-none mt-4"
-            >
-              Add Student
-            </button>
+            <button type="submit" className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600 focus:outline-none mt-4">Save</button>
+            
           </form>
         </div>
       </div>
@@ -131,4 +141,4 @@ const AddStudentForm = () => {
   );
 };
 
-export default AddStudentForm;
+export default EditStudentForm;

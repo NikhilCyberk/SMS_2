@@ -190,6 +190,7 @@ export const deleteStudentsByClass = async (req, res) => {
 };
 
 export const updateStudent = async (req, res) => {
+  console.log(req.body, 400);
   try {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
@@ -204,6 +205,7 @@ export const updateStudent = async (req, res) => {
     result.password = undefined;
     res.send(result);
   } catch (error) {
+    console.log(error, 500);
     res.status(500).json(error);
   }
 };

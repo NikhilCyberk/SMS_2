@@ -9,7 +9,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { FaPlus } from "react-icons/fa";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import AddStudentForm from "./AddStudentForm";
-import EditStudentForm from "./EditStudentForm";
+import EditStudentForm from "../../student/EditStudentForm.jsx";
 import Header from "../../admin/header/Header";
 import StudentTable from "../table/StudentTable";
 import Pagination from "../../admin/table/Pagination";

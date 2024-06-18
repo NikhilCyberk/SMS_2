@@ -74,20 +74,20 @@ const StudentTable = ({
                   <FaEdit size={20} />
                   <span className="ml-1">Edit</span>
                 </button>
-                <button
+                <Link
+                  to={`/admin/student/class____id/${student.sclassName._id}/student____id/${student._id}/st_attendance`}
                   className="text-yellow-500 hover:text-yellow-700 transition duration-300 flex items-center"
-                  onClick={() => onTakeAttendance(student._id)}
                 >
                   <FaCheckSquare size={20} />
                   <span className="ml-1">Attendance</span>
-                </button>
-                <button
+                </Link>
+                <Link
+                  to={`/admin/student/class____id/${student.sclassName._id}/student____id/${student._id}/st_marks`}
                   className="text-purple-500 hover:text-purple-700 transition duration-300 flex items-center"
-                  onClick={() => onProvideMarks(student._id)}
                 >
                   <FaClipboardList size={20} />
                   <span className="ml-1">Marks</span>
-                </button>
+                </Link>
               </td>
             </tr>
           ))}

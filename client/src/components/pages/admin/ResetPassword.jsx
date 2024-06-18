@@ -13,11 +13,11 @@ const ResetPassword = () => {
         password,
       })
       .then((response) => {
-        console.log(response.data.status);
+        // console.log(response.data.status);
         if (response.data.status) {
           navigate("/login");
         }
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         confirm(error);

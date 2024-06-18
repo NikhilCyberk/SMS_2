@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UpdateExamResult = ({ studentId, subjects }) => {
   const [formData, setFormData] = useState({ subName: "", marksObtained: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  // console.log(subjects, "subjects", 1231231312);
+  const id = localStorage.getItem("_id");
+  console.log(id, "id");
+  useEffect(() => {
+    if (
+      !Array.isArray(subjects) ||
+      subjects.length === 0 ||
+      subjects.message === "No subjects found"
+    ) {
+      alert(
+        "No subjects available. Please add a subject first for this class."
+      );
+      navigate(`/admin/list-subject/${id}`); // Adjust the path to your add-subject page
+    }
+  }, [subjects, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

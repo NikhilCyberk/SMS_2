@@ -62,7 +62,7 @@ export const classSubjects = async (req, res) => {
     if (subjects.length > 0) {
       res.send(subjects);
     } else {
-      res.send({ message: "No subjects found" });
+      res.status(201).send({ message: "No subjects found" });
     }
   } catch (err) {
     res.status(500).json(err);
