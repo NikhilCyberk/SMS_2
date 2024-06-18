@@ -135,7 +135,7 @@ export const getStudents = async (req, res) => {
 
 export const getStudentDetail = async (req, res) => {
   try {
-    console.log(req.params.id, 200);
+    // console.log(req.params.id, 200);
     let student = await Student.findById(req.params.id)
       .populate("school", "schoolName")
       .populate("sclassName", "sclassName")

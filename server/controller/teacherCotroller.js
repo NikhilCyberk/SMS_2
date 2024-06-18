@@ -70,7 +70,7 @@ export const getTeachers = async (req, res) => {
       let modifiedTeachers = teachers.map((teacher) => {
         return { ...teacher._doc, password: undefined };
       });
-      console.log(modifiedTeachers, "modifiedTeachers");
+      // console.log(modifiedTeachers, "modifiedTeachers");
       res.status(200).send(modifiedTeachers);
     } else {
       res.status(201).send({ message: "No teachers found" });
@@ -82,7 +82,7 @@ export const getTeachers = async (req, res) => {
 
 export const getTeacherDetail = async (req, res) => {
   try {
-    console.log(req.params.id, 400);
+    // console.log(req.params.id, 400);
     let teacher = await Teacher.findById(req.params.id)
       .populate("teachSubject", "subName sessions")
       .populate("school", "schoolName")
@@ -189,7 +189,7 @@ export const deleteTeachersByClass = async (req, res) => {
 };
 
 export const teacherAttendance = async (req, res) => {
-  console.log(req.body, 1111);
+  // console.log(req.body, 1111);
   const { status, date } = req.body;
 
   try {
@@ -204,7 +204,7 @@ export const teacherAttendance = async (req, res) => {
       (record) => record.date.toDateString() === attendanceDate
     );
 
-    console.log(attendanceDate, 235632);
+    // console.log(attendanceDate, 235632);
 
     if (existingAttendance) {
       existingAttendance.status = status;

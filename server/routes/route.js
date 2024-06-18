@@ -60,7 +60,10 @@ import {
   teacherRegister,
   updateTeacherSubject,
 } from "../controller/teacherCotroller.js";
-import { complainCreate, complainList } from "../controller/complainController.js";
+import {
+  complainCreate,
+  complainList,
+} from "../controller/complainController.js";
 
 // router.get("*", (req, res) => {
 //   return res.json({ message: "404: page not found" });
@@ -74,30 +77,27 @@ router.get("/admin/:id", getAdminDetail);
 // Teacher
 router.post("/teacher-reg", teacherRegister);
 router.post("/teacher-login", teacherLogIn);
+router.post("/teacher-attendance/:id", teacherAttendance);
 router.get("/teachers/:id", getTeachers);
 router.get("/teacher/:id", getTeacherDetail);
-router.delete("/teachers/:id", deleteTeachers);  // it delete all teacher from school
-router.delete("/teachers-class/:id", deleteTeachersByClass);  // it delete all teacher from perticular class
+router.delete("/teachers/:id", deleteTeachers); // it delete all teacher from school
+router.delete("/teachers-class/:id", deleteTeachersByClass); // it delete all teacher from perticular class
 router.delete("/teacher/:id", deleteTeacher); // it delete single teacher
 router.put("/teacher-subject", updateTeacherSubject);
-router.post("/teacher-attendance/:id", teacherAttendance);
 
 //student
-router.post("/student-register", StudentRegister); //to register student 
-router.post("/student-login", studentLogIn); //to login to student 
+router.post("/student-register", StudentRegister); //to register student
+router.post("/student-login", studentLogIn); //to login to student
 router.get("/get-students/:id", getStudents); // get all student from school
 router.get("/get-student-detail/:id", getStudentDetail); //get all detail of student
 router.delete("/students/:id", deleteStudents); // delete all student from school
 router.delete("/students-class/:id", deleteStudentsByClass); // delete all student from class
 router.delete("/student/:id", deleteStudent); // delete single student
-router.put("/student/:id", updateStudent); // edit student  
+router.put("/student/:id", updateStudent); // edit student
 router.put("/update-exam-result/:id", updateExamResult); // edit result
 router.put("/student-attendance/:id", studentAttendance); // edit attendance
-router.put(
-  "/remove-all-students-sub-atten/:id",
-  clearAllStudentsAttendanceBySubject
-); // edit attance by subject
-router.put("/remove-all-students-atten/:id", clearAllStudentsAttendance);  // set all attendance to zero
+router.put("/remove-all-students-sub-atten/:id",clearAllStudentsAttendanceBySubject); // edit attance by subject
+router.put("/remove-all-students-atten/:id", clearAllStudentsAttendance); // set all attendance to zero
 router.put("/remove-student-sub-atten/:id", removeStudentAttendanceBySubject);
 router.put("/remove-student-atten/:id", removeStudentAttendance);
 
@@ -131,11 +131,6 @@ router.get("/notice-list/:id", noticeList);
 router.delete("/notices/:id", deleteNotices);
 router.delete("/notice/:id", deleteNotice);
 router.put("/notice/:id", updateNotice);
-
-
-
-
-
 
 // router.post("/admin/add-student", adminAddStuudent);
 

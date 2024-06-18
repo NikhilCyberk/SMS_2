@@ -26,13 +26,13 @@ const ListStudent = () => {
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
 
-  const id = localStorage.getItem("_id");
+  const schoolId = localStorage.getItem("_id");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/get-students/${id}`
+          `http://localhost:3000/get-students/${schoolId}`
         );
         setStudentData(response.data);
         setFilteredData(response.data);
@@ -41,7 +41,7 @@ const ListStudent = () => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [schoolId]);
 
   useEffect(() => {
     dispatch(fetchStudents());

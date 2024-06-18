@@ -10,7 +10,7 @@ import Students from "../table/StudentTable";
 import Teachers from "../table/TeacherTable";
 
 const ClassDetails = () => {
-  const { id, type } = useParams();
+  const { classes, class_id, type } = useParams();
   const schoolId = localStorage.getItem("_id");
   // console.log(id, "id", schoolId, "schoolId", type, "type");
 
@@ -22,40 +22,45 @@ const ClassDetails = () => {
     const fetchData = async () => {
       try {
         const [subjects, students, teachers] = await Promise.all([
-          axios.get(`http://localhost:3000/class-subjects/${id}`),
-          axios.get(`http://localhost:3000/get-students/${schoolId}`),
+          axios.get(`http://localhost:3000/class-subjects/${class_id}`),
+          // axios.get(`http://localhost:3000/get-students/${schoolId}`),
+          axios.get(`http://localhost:3000/class/Students/${class_id}`),
           axios.get(`http://localhost:3000/teachers/${schoolId}`),
         ]);
 
+        setSubject(subjects.data);
+        setStudent(students.data.modifiedStudents);
+        setTeacher(teachers.data);
+
         console.log(
-          subjects,
-          "subjects",
+          // subjects,
+          // "subjects",
           students,
-          "students",
-          teachers,
-          "teachers"
+          "students"
+          // teachers,
+          // "teachers"
         );
 
-        const filteredStudents = students.data.filter(
-          (student) => student.sclassName._id === id
-        );
-        setStudent(filteredStudents);
-        const filteredSubjects = subjects.data.filter(
-          (subject) => subject.sclassName === id
-        );
-        setSubject(filteredSubjects);
-        const filteredTeachers = teachers.data
-          .map((teacher) => teacher.teachSclass)
-          .filter((teacher) => teacher._id === id);
+        // const filteredStudents = students.data.filter(
+        //   (student) => student.sclassName._id === id
+        // );
+        // setStudent(filteredStudents);
+        // const filteredSubjects = subjects.data.filter(
+        //   (subject) => subject.sclassName === id
+        // );
+        // setSubject(filteredSubjects);
+        // const filteredTeachers = teachers.data
+        //   .map((teacher) => teacher.teachSclass)
+        //   .filter((teacher) => teacher._id === id);
 
-        setTeacher(filteredTeachers);
+        // setTeacher(filteredTeachers);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchData();
-  }, [id, schoolId]);
+  }, [class_id, schoolId]);
 
   // console.log(teacher, 77888);
   // console.log(student, 77889);
@@ -77,7 +82,7 @@ const ClassDetails = () => {
     } else if (type === "students") {
       return student.length > 0 ? (
         <div className="m-4">
-          <Students students={student} />
+          <Students students={student} SclassName={classes} />
         </div>
       ) : (
         <p>No student available</p>
@@ -97,7 +102,7 @@ const ClassDetails = () => {
 
   return (
     <div>
-      <TopBar onTypeChange={handleTypeChange} />
+      <TopBar onTypeChange={handleTypeChange} data="class" />
       {renderContent()}
     </div>
   );

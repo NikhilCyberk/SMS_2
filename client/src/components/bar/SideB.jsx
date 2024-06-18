@@ -12,11 +12,12 @@ import {
 const SideB = ({ showSidebar }) => {
   const role = localStorage.getItem("role");
   const user = localStorage.getItem("user");
-  const id = localStorage.getItem("_id");
+  const school_id = localStorage.getItem("_id");
   const buttonCss = `flex items-center px-4 py-3 text-gray-100 transition-colors duration-300 transform rounded-lg hover:text-white hover:bg-blue-600 aria-[current=page]:text-white aria-[current=page]:bg-blue-700 `;
 
   return (
     <div className="flex flex-col">
+      SideB.jsx
       <div
         className={`${
           showSidebar ? "w-64" : "w-20"
@@ -45,7 +46,10 @@ const SideB = ({ showSidebar }) => {
                   Dashboard
                 </span>
               </NavLink>
-              <NavLink to={`admin-list-class/${id}`} className={buttonCss}>
+              <NavLink
+                to={`admin-list-class/school____id/${school_id}`}
+                className={buttonCss}
+              >
                 <FaList className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -55,7 +59,10 @@ const SideB = ({ showSidebar }) => {
                   List Class
                 </span>
               </NavLink>
-              <NavLink to={`list-student/${id}`} className={buttonCss}>
+              <NavLink
+                to={`list-student/school____id/${school_id}`}
+                className={buttonCss}
+              >
                 <FaUsers className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -65,7 +72,7 @@ const SideB = ({ showSidebar }) => {
                   List Student
                 </span>
               </NavLink>
-              <NavLink to={`list-subject/${id}`} className={buttonCss}>
+              <NavLink to={`list-subject/${school_id}`} className={buttonCss}>
                 <FaChalkboardTeacher className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -75,7 +82,7 @@ const SideB = ({ showSidebar }) => {
                   Subject List
                 </span>
               </NavLink>
-              <NavLink to={`list-teacher/${id}`} className={buttonCss}>
+              <NavLink to={`list-teacher/${school_id}`} className={buttonCss}>
                 <FaChalkboardTeacher className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -85,7 +92,7 @@ const SideB = ({ showSidebar }) => {
                   Teacher List
                 </span>
               </NavLink>
-              <NavLink to={`list-notice/${id}`} className={buttonCss}>
+              <NavLink to={`list-notice/${school_id}`} className={buttonCss}>
                 <FaClipboardList className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -95,7 +102,7 @@ const SideB = ({ showSidebar }) => {
                   List Notices
                 </span>
               </NavLink>
-              <NavLink to={`list-complain/${id}`} className={buttonCss}>
+              <NavLink to={`list-complain/${school_id}`} className={buttonCss}>
                 <FaExclamationTriangle className="mx-2 text-lg" />
                 <span
                   className={`${
@@ -109,7 +116,6 @@ const SideB = ({ showSidebar }) => {
           </nav>
         </div>
       </div>
-
       <div className="ml-4 rounded-2xl border-4 border-blue-500 bg-gray-900  p-4 text-center shadow-lg  mt-2">
         <figure className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500 dark:bg-indigo-600">
           <svg

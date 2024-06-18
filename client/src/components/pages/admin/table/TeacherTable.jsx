@@ -48,28 +48,32 @@ const TeacherTable = ({ teachers, onDelete, onEdit, onAttendance }) => (
             </td>
             <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
               <Link
-                to={`${teacher._id}`}
-                className="text-blue-500 hover:text-blue-700 transition duration-300"
+                to={`/admin/teacher/${teacher._id}`}
+                className="text-blue-500 hover:text-blue-700 transition duration-300 flex items-center"
               >
                 <AiFillEye size={24} />
+                <span className="ml-1">View</span>
               </Link>
               <button
-                className="text-red-500 hover:text-red-700 transition duration-300"
+                className="text-red-500 hover:text-red-700 transition duration-300 flex items-center"
                 onClick={() => onDelete(teacher._id)}
               >
                 <AiFillDelete size={24} />
+                <span className="ml-1">Delete </span>
               </button>
               <button
-                className="text-green-500 hover:text-green-700 transition duration-300"
+                className="text-green-500 hover:text-green-700 transition duration-300 flex items-center"
                 onClick={() => onEdit(teacher._id)}
               >
                 <AiOutlineEdit size={24} />
+                <span className="ml-1">Edit</span>
               </button>
               <button
-                className="text-purple-500 hover:text-purple-700 transition duration-300"
+                className="text-purple-500 hover:text-purple-700 transition duration-300 flex items-center"
                 onClick={() => onAttendance(teacher)}
               >
                 <SlCalender size={24} />
+                <span className="ml-1">Attendance</span>
               </button>
             </td>
           </tr>

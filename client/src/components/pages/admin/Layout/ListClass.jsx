@@ -25,7 +25,7 @@ const ListClass = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { id } = useParams();
+  const { school_id } = useParams();
 
   const handleDeleteClass = useCallback(async (classId) => {
     confirmAlert({
@@ -36,7 +36,7 @@ const ListClass = () => {
           label: "Yes",
           onClick: async () => {
             try {
-              await axios.delete(`http://localhost:3000/sclass/${classId}`);
+              await axios.delete(`http://localhost:3000/sclass/${school_id}`);
               setClasses((prevClasses) =>
                 prevClasses.filter((c) => c._id !== classId)
               );
@@ -75,7 +75,7 @@ const ListClass = () => {
                   onClick={async () => {
                     try {
                       await axios.delete(
-                        `http://localhost:3000/sclasses/${id}`
+                        `http://localhost:3000/sclasses/${school_id}`
                       );
                       setClasses([]);
                       setFilteredClasses([]);
@@ -102,7 +102,7 @@ const ListClass = () => {
         );
       },
     });
-  }, [id]);
+  }, [school_id]);
 
   const handleSearch = useCallback(
     (e) => {
@@ -183,7 +183,7 @@ const ListClass = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/get-class/${id}`
+          `http://localhost:3000/get-class/${school_id}`
         );
         setClasses(response.data);
         setFilteredClasses(response.data);
@@ -192,10 +192,11 @@ const ListClass = () => {
       }
     };
     fetchData();
-  }, [id, handleDeleteAllClasses, showAddClassModal]);
+  }, [school_id, handleDeleteAllClasses, showAddClassModal]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      ListClass.jsx
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Header
           searchTerm={searchTerm}
@@ -212,7 +213,6 @@ const ListClass = () => {
         ) : (
           <ClassTable
             classes={currentClasses}
-            
             isAscending={isAscending}
             onSort={handleSort}
             onDelete={handleDeleteClass}

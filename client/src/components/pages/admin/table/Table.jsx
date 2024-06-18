@@ -68,7 +68,8 @@ const ClassRow = ({
     <td className="px-6 py-4 whitespace-nowrap">{classItem.sclassName}</td>
     <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
       <Link
-        to={`/admin/class/${classItem._id}/subjects`}
+        // to={`/admin/class/${classItem.sclassName}/${classItem._id}/subjects`}
+        to={`/admin/class_name/${classItem.sclassName}/class____id/${classItem._id}/subjects`}
         className="text-blue-500 hover:text-blue-700 transition duration-300 flex items-center"
       >
         <AiFillEye size={20} />
