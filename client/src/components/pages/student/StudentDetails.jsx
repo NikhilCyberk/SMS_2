@@ -73,6 +73,7 @@ import TopBar from "../admin/Layout/TopBar";
 import StudentCardDetail from "./StudentCardDetail";
 import AttendanceDetail from "./Attendance";
 import MarksDetail from "./MarksDetail";
+import UpdateAttendanceForm from "./UpdateAttendanceForm";
 
 const StudentDetails = () => {
   const { student_id, type, class_id } = useParams();
@@ -119,7 +120,12 @@ const StudentDetails = () => {
     if (type === "st_details") {
       return <StudentCardDetail student={student} />;
     } else if (type === "st_attendance") {
-      return <AttendanceDetail attendance={student.attendance} />;
+      return (
+        <>
+          <UpdateAttendanceForm studentId={student._id} subjects={subjects} />
+          <AttendanceDetail attendance={student.attendance} />
+        </>
+      );
     } else if (type === "st_marks") {
       return (
         <MarksDetail
