@@ -9,7 +9,8 @@ import {
 } from "react-icons/fa";
 
 const TopBar = ({ data }) => {
-  const { class_id, type, classes, student_id } = useParams();
+  const { class_id, type, classes, student_id, teacher_id, subject_id } =
+    useParams();
   const location = useLocation();
 
   const getLinkClass = (path) => {
@@ -53,29 +54,30 @@ const TopBar = ({ data }) => {
         label: "Marks",
       },
     ],
+    // subject/subject___id/:subject_id/:type
     subject: [
       {
-        to: `/admin/class/${class_id}/subject/details`,
+        to: `/admin/subject/subject___id/${subject_id}/sub_details`,
         icon: FaBook,
         label: "Subject Details",
       },
       {
-        to: `/admin/class/${class_id}/subject/students`,
+        to: `/admin/subject/subject___id/${subject_id}/sub_students`,
         icon: FaUserGraduate,
         label: "Students",
       },
     ],
     teacher: [
       {
-        to: `/admin/class/${class_id}/teacher/details`,
+        to: `/admin/teacher/teacher___id/${teacher_id}/teacher_details`,
         icon: FaChalkboardTeacher,
         label: "Teacher Details",
       },
-      {
-        to: `/admin/class/${class_id}/teacher/students`,
-        icon: FaUserGraduate,
-        label: "Students",
-      },
+      // {
+      //   to: `/admin/class/${class_id}/teacher/students`,
+      //   icon: FaUserGraduate,
+      //   label: "Students",
+      // },
     ],
   };
 

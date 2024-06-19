@@ -48,7 +48,7 @@ const TeacherTable = ({ teachers, onDelete, onEdit, onAttendance }) => (
             </td>
             <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
               <Link
-                to={`/admin/teacher/${teacher._id}`}
+                to={`/admin/teacher/teacher___id/${teacher._id}/teacher_details`}
                 className="text-blue-500 hover:text-blue-700 transition duration-300 flex items-center"
               >
                 <AiFillEye size={24} />

@@ -8,7 +8,7 @@ const UpdateExamResult = ({ studentId, subjects }) => {
   const navigate = useNavigate();
   // console.log(subjects, "subjects", 1231231312);
   const id = localStorage.getItem("_id");
-  console.log(id, "id");
+  // console.log(id, "id");
   useEffect(() => {
     if (
       !Array.isArray(subjects) ||

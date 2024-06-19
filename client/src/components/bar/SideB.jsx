@@ -17,7 +17,6 @@ const SideB = ({ showSidebar }) => {
 
   return (
     <div className="flex flex-col">
-      SideB.jsx
       <div
         className={`${
           showSidebar ? "w-64" : "w-20"

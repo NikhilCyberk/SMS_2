@@ -96,7 +96,10 @@ router.delete("/student/:id", deleteStudent); // delete single student
 router.put("/student/:id", updateStudent); // edit student
 router.put("/update-exam-result/:id", updateExamResult); // edit result
 router.put("/student-attendance/:id", studentAttendance); // edit attendance
-router.put("/remove-all-students-sub-atten/:id",clearAllStudentsAttendanceBySubject); // edit attance by subject
+router.put(
+  "/remove-all-students-sub-atten/:id",
+  clearAllStudentsAttendanceBySubject
+); // edit attance by subject
 router.put("/remove-all-students-atten/:id", clearAllStudentsAttendance); // set all attendance to zero
 router.put("/remove-student-sub-atten/:id", removeStudentAttendanceBySubject);
 router.put("/remove-student-atten/:id", removeStudentAttendance);
@@ -115,22 +118,22 @@ router.post("/subject-create", subjectCreate); //checked
 router.get("/all-subjects/:id", allSubjects); //checked
 router.get("/class-subjects/:id", classSubjects); //checked
 router.get("/free-subject-list/:id", freeSubjectList);
-router.delete("/Subject/:id", deleteSubject);
-router.delete("/Subjects/:id", deleteSubjects);
-router.delete("/SubjectsClass/:id", deleteSubjectsByClass);
+router.delete("/Subject/:id", deleteSubject); //delete single subject
+router.delete("/Subjects/:id", deleteSubjects); //delete all subject from school
+router.delete("/SubjectsClass/:id", deleteSubjectsByClass); //delete all subject from class
 
 // Complain
 
-router.post("/complain-create", complainCreate);
-router.get("/complain-list/:id", complainList);
+router.post("/complain-create", complainCreate); //done
+router.get("/complain-list/:id", complainList); //done
 
 // Notice
 
-router.post("/notice-create", noticeCreate);
-router.get("/notice-list/:id", noticeList);
-router.delete("/notices/:id", deleteNotices);
-router.delete("/notice/:id", deleteNotice);
-router.put("/notice/:id", updateNotice);
+router.post("/notice-create", noticeCreate); //done
+router.get("/notice-list/:id", noticeList); //done
+router.delete("/notices/:id", deleteNotices); //done
+router.delete("/notice/:id", deleteNotice); //done
+router.put("/notice/:id", updateNotice); //done
 
 // router.post("/admin/add-student", adminAddStuudent);
 

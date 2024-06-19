@@ -59,6 +59,29 @@ const ListStudent = () => {
     setCurrentPage(1);
   }, [searchTerm, studentData]);
 
+  const handleDeleteAll = async () => {
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete all students?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            try {
+              await axios.delete(`http://localhost:3000/students/${schoolId}`);
+              setStudentData([]);
+              setFilteredData([]);
+              dispatch(fetchStudents());
+            } catch (error) {
+              console.error("Error deleting all students:", error);
+            }
+          },
+        },
+        { label: "No", onClick: () => {} },
+      ],
+    });
+  };
+
   const handleDeleteStudent = (studentId) => {
     confirmAlert({
       title: "Confirm to delete",
@@ -133,6 +156,7 @@ const ListStudent = () => {
           searchTerm={searchTerm}
           onSearch={handleSearchChange}
           onAdd={handleAddStudentModal}
+          onDeleteAll={handleDeleteAll}
           itemsPerPage={entriesPerPage}
           onItemsPerPageChange={handleEntriesPerPageChange}
           title="Students List"

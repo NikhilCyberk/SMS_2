@@ -186,7 +186,7 @@ const AddSubject = () => {
           adminID,
         }
       );
-      console.log(response.data, 2020202);
+      // console.log(response.data, 2020202);
     } catch (error) {
       console.error(error);
     }

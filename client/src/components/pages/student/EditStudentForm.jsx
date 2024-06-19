@@ -29,7 +29,7 @@ const EditStudentForm = ({ studentId, onClose, onSave }) => {
         const response = await axios.get(
           `http://localhost:3000/get-student-detail/${studentId}`
         );
-        console.log(response.data, 8989898);
+        // console.log(response.data, 8989898);
         setStudentData(response.data);
       } catch (error) {
         console.error("Error fetching student data:", error);

@@ -108,7 +108,6 @@ export const studentLogIn = async (req, res) => {
 
 export const getStudents = async (req, res) => {
   try {
-    // return res.json({ message: "hello from get stdent" });
     let students = await Student.find({ school: req.params.id })
       .populate("sclassName")
       .populate("school");
@@ -121,16 +120,10 @@ export const getStudents = async (req, res) => {
     } else {
       res.status(201).send({ message: "No students found" });
     }
-    // console.log(populatedStudent);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-
-  //
-  // } catch (err) {
-  //   res.status(500).json(err);
-  // }
 };
 
 export const getStudentDetail = async (req, res) => {

@@ -34,6 +34,7 @@ import ClassDetails from "./components/pages/admin/Layout/ClassDetails";
 import StudentDetails from "./components/pages/student/StudentDetails";
 import SubjectDetails from "./components/pages/subject/SubjectDetails";
 import TeacheDetails from "./components/pages/teacher/TeacheDetails";
+import NotFound from "./NotFound";
 
 function App() {
   const id = localStorage.getItem("_id");
@@ -43,6 +44,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
         <Route path="/chooseuser" element={<ChooseUser />} />
 
         <Route path="/login" element={<AdminLogin />} />
@@ -57,9 +59,15 @@ function App() {
           <Route index element={<AdminDashboard />} />
           {/* <Route path="admin-profile" element={<AdminProfile />} /> */}
           <Route path="admin-add-class" element={<AddClass />} />
-          <Route path="admin-list-class/school____id/:school_id" element={<ListClass />} />
+          <Route
+            path="admin-list-class/school____id/:school_id"
+            element={<ListClass />}
+          />
           <Route path="admin-add-student" element={<AddStudentForm />} />
-          <Route path="list-student/school____id/:school_id" element={<ListStudent />} />
+          <Route
+            path="list-student/school____id/:school_id"
+            element={<ListStudent />}
+          />
           <Route path="add-subject" element={<AddSubject />} />
           <Route path="admin-add-teacher" element={<AddTeacherForm />} />
           <Route path="list-subject/:id" element={<SubjectList id={id} />} />
@@ -70,10 +78,22 @@ function App() {
             path="class-student/:classId/:className"
             element={<StudentListByClass />}
           />
-          <Route path="class_name/:classes/class____id/:class_id/:type" element={<ClassDetails />} />
-          <Route path="student/class____id/:class_id/student____id/:student_id/:type" element={<StudentDetails />} />
-          <Route path="subject/:id/:type" element={<SubjectDetails />} />
-          <Route path="teacher/:id/:type" element={<TeacheDetails />} />
+          <Route
+            path="class_name/:classes/class____id/:class_id/:type"
+            element={<ClassDetails />}
+          />
+          <Route
+            path="student/class____id/:class_id/student____id/:student_id/:type"
+            element={<StudentDetails />}
+          />
+          <Route
+            path="subject/subject___id/:subject_id/:type"
+            element={<SubjectDetails />}
+          />
+          <Route
+            path="teacher/teacher___id/:teacher_id/:type"
+            element={<TeacheDetails />}
+          />
           {/* <Route path="class/:id/subjects" element={<ClassDetails />} />
           <Route path="class/:id/students" element={<ClassDetails />} />
           <Route path="class/:id/teachers" element={<ClassDetails />} /> */}

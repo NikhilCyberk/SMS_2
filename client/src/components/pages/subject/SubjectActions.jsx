@@ -4,7 +4,7 @@ const SubjectActions = ({ subject }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    console.log(subject._id, 6545);
+    // console.log(subject._id, 6545);
     try {
       setIsDeleting(true);
       await axios.delete(`http://localhost:3000/Subject/${subject._id}`);

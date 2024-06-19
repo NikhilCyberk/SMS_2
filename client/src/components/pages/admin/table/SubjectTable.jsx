@@ -2,9 +2,8 @@ import React from "react";
 import { FaEye, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 
-const SubjectTable = ({ subjects, classId }) => {
+const SubjectTable = ({ subjects, classId , onDelete}) => {
   const { classes } = useParams();
-  console.log(classes, 70002255);
   return (
     <div className="overflow-x-auto border-4 rounded-lg border-blue-500 shadow-lg">
       <table className="min-w-full bg-gray-800 rounded-lg">
@@ -50,26 +49,27 @@ const SubjectTable = ({ subjects, classId }) => {
               </td>
               <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-4">
                 <Link
-                  to={`/admin/subject/${subject._id}`}
+                  to={`/admin/subject/subject___id/${subject._id}/sub_details`}
                   className="text-blue-500 hover:text-blue-700 transition duration-300 flex items-center"
                 >
                   <FaEye size={20} />
                   <span className="ml-1">View</span>
                 </Link>
-                <Link
+                <button
                   // to={`/admin/class/${classId}/subject/${subject.id}/delete`}
                   className="text-red-500 hover:text-red-700 transition duration-300 flex items-center"
+                  onClick={() => onDelete(subject._id)}
                 >
                   <FaTrashAlt size={20} />
                   <span className="ml-1">Delete</span>
-                </Link>
-                <Link
+                </button>
+                {/* <Link
                   // to={`/admin/class/${classId}/subject/${subject.id}/edit`}
                   className="text-green-500 hover:text-green-700 transition duration-300 flex items-center"
                 >
                   <FaPencilAlt size={20} />
                   <span className="ml-1">Edit</span>
-                </Link>
+                </Link> */}
               </td>
             </tr>
           ))}

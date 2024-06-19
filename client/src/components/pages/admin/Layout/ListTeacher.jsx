@@ -183,6 +183,7 @@ const ListTeacher = () => {
           onSearch={handleSearchChange}
           onAdd={handleAddTeacherModal}
           itemsPerPage={entriesPerPage}
+          onDeleteAll={handleDeleteAllTeachers}
           onItemsPerPageChange={handleEntriesPerPageChange}
           title="Teacher List"
           isDeleteAllVisible={handleDeleteAllTeachers}

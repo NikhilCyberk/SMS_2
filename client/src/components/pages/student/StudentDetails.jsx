@@ -34,7 +34,7 @@ const StudentDetails = () => {
         } else {
           setSubjects(response.data);
         }
-        console.log(subjects, "subjects");
+        // console.log(subjects, "subjects");
       } catch (error) {
         console.error("Error fetching subjects:", error);
       }

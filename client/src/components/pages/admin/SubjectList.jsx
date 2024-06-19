@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import Header from "../admin/header/Header";
 import SubjectTable from "../admin/table/SubjectTable";
 import Pagination from "../admin/table/Pagination";
@@ -52,29 +53,60 @@ const SubjectList = ({ id }) => {
   }, [searchTerm, subjects]);
 
   const handleDeleteAll = async () => {
-    try {
-      await axios.delete(`http://localhost:3000/Subjects/${id}`);
-      setIsDeleteAllClicked(!isDeleteAllClicked);
-    } catch (error) {
-      console.error("Error deleting all subjects:", error);
-    }
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete all subject?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            try {
+              await axios.delete(`http://localhost:3000/Subjects/${id}`);
+              setIsDeleteAllClicked(!isDeleteAllClicked);
+            } catch (error) {
+              console.error("Error deleting all subjects:", error);
+            }
+          },
+        },
+        { label: "No", onClick: () => {} },
+      ],
+    });
   };
 
-  const handleAddSubjectModal = () => {
-    setShowAddSubjectModal(!showAddSubjectModal);
+  const handleDeleteSubject = async (subjectId) => {
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this subject?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            try {
+              await axios.delete(`http://localhost:3000/Subject/${subjectId}`);
+              setIsDeleteAllClicked(!isDeleteAllClicked);
+            } catch (error) {
+              console.error("Error deleting subject:", error);
+            }
+          },
+        },
+        { label: "No", onClick: () => {} },
+      ],
+    });
   };
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-
-  const handleItemsPerPageChange = (e) => {
-    setItemsPerPage(Number(e.target.value));
-  };
-
   const handleEntriesPerPageChange = (e) => {
     setEntriesPerPage(Number(e.target.value));
     setCurrentPage(1);
+  };
+  const handleAddSubjectModal = () => {
+    setShowAddSubjectModal(!showAddSubjectModal);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -105,7 +137,10 @@ const SubjectList = ({ id }) => {
           <p className="text-gray-500">No subjects found.</p>
         ) : (
           <>
-            <SubjectTable subjects={currentEntries} />
+            <SubjectTable
+              subjects={currentEntries}
+              onDelete={handleDeleteSubject}
+            />
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

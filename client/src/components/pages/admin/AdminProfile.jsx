@@ -18,10 +18,9 @@ const AdminProfile = ({ id, email, role, schoolName }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/admin/${id}`);
-        // console.log(response);
         if (response.status !== 200) {
           navigate("/login");
-          // props.setVerifie}
+          
         }
       } catch (error) {
         console.error("Error fetching data:", error);
