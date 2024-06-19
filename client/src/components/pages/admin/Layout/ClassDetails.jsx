@@ -13,6 +13,7 @@ const ClassDetails = () => {
   const { classes, class_id, type } = useParams();
   const schoolId = localStorage.getItem("_id");
   // console.log(id, "id", schoolId, "schoolId", type, "type");
+  // console.log(class_id, 22556699);
 
   const [subject, setSubject] = useState({});
   const [student, setStudent] = useState({});
@@ -29,31 +30,12 @@ const ClassDetails = () => {
         ]);
 
         setSubject(subjects.data);
-        setStudent(students.data.modifiedStudents);
-        setTeacher(teachers.data);
-
-        // console.log(
-        //   // subjects,
-        //   // "subjects",
-        //   students,
-        //   "students"
-        //   // teachers,
-        //   // "teachers"
-        // );
-
-        // const filteredStudents = students.data.filter(
-        //   (student) => student.sclassName._id === id
-        // );
-        // setStudent(filteredStudents);
-        // const filteredSubjects = subjects.data.filter(
-        //   (subject) => subject.sclassName === id
-        // );
-        // setSubject(filteredSubjects);
-        // const filteredTeachers = teachers.data
-        //   .map((teacher) => teacher.teachSclass)
-        //   .filter((teacher) => teacher._id === id);
-
-        // setTeacher(filteredTeachers);
+        setStudent(students.data?.modifiedStudents || []);
+        // Filter teachers that are equal to the class ID
+        const filteredTeachers = teachers.data.filter(
+          (teacher) => teacher.teachSclass._id === class_id
+        );
+        setTeacher(filteredTeachers);
       } catch (err) {
         console.error(err);
       }
