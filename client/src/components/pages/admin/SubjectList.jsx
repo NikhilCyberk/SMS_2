@@ -17,7 +17,6 @@ const SubjectList = ({ id }) => {
   const [showAddSubjectModal, setShowAddSubjectModal] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState(10);
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -97,26 +96,25 @@ const SubjectList = ({ id }) => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-  const handleEntriesPerPageChange = (e) => {
-    setEntriesPerPage(Number(e.target.value));
-    setCurrentPage(1);
-  };
+
   const handleAddSubjectModal = () => {
     setShowAddSubjectModal(!showAddSubjectModal);
   };
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1);
   };
 
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = filteredData.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
+  const indexOfLastEntry = currentPage * itemsPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - itemsPerPage;
+  const currentEntries = Array.isArray(filteredData)
+    ? filteredData.slice(indexOfFirstEntry, indexOfLastEntry)
+    : [];
 
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+  const totalPages = Math.ceil(
+    Array.isArray(filteredData) ? filteredData.length / itemsPerPage : 1
+  );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">

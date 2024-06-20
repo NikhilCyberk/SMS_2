@@ -21,21 +21,7 @@ const ListTeacher = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage, setEntriesPerPage] = useState(10);
-
-  useEffect(() => {
-    const filtered = teachers.filter(
-      (teacher) =>
-        teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.teachSclass.sclassName
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        teacher.teachSubject.subName
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-    );
-  });
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -68,6 +54,32 @@ const ListTeacher = () => {
     fetchTeachers();
     fetchClasses();
   }, [schoolId]);
+
+  useEffect(() => {
+    const filtered = teachers.filter(
+      (teacher) =>
+        teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        teacher.teachSclass.sclassName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        teacher.teachSubject.subName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1); // Reset to the first page whenever the search term changes
+  }, [searchTerm, teachers]);
+
+  const indexOfLastEntry = currentPage * itemsPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - itemsPerPage;
+  const currentEntries = Array.isArray(filteredData)
+    ? filteredData.slice(indexOfFirstEntry, indexOfLastEntry)
+    : [];
+
+  const totalPages = Math.ceil(
+    Array.isArray(filteredData) ? filteredData.length / itemsPerPage : 1
+  );
 
   const handleDelete = async (teacherId) => {
     confirmAlert({
@@ -152,8 +164,8 @@ const ListTeacher = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleEntriesPerPageChange = (e) => {
-    setEntriesPerPage(Number(e.target.value));
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
 
@@ -166,15 +178,6 @@ const ListTeacher = () => {
     setShowAttendanceModal(!showAttendanceModal);
   };
 
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = filteredData.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
-
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
-
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -182,9 +185,9 @@ const ListTeacher = () => {
           searchTerm={searchTerm}
           onSearch={handleSearchChange}
           onAdd={handleAddTeacherModal}
-          itemsPerPage={entriesPerPage}
           onDeleteAll={handleDeleteAllTeachers}
-          onItemsPerPageChange={handleEntriesPerPageChange}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={handleItemsPerPageChange}
           title="Teacher List"
           isDeleteAllVisible={handleDeleteAllTeachers}
         />
@@ -192,7 +195,7 @@ const ListTeacher = () => {
           <p className="text-gray-500">No teachers found.</p>
         ) : (
           <TeacherTable
-            teachers={teachers}
+            teachers={currentEntries}
             onDelete={handleDelete}
             onEdit={(teacherId) =>
               console.log(`Edit teacher with ID: ${teacherId}`)
