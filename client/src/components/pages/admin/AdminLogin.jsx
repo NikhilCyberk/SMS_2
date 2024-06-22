@@ -13,13 +13,14 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set isLoading to true when starting the request
+
     axios
       .post("http://localhost:3000/auth/login", {
         email,
         password,
       })
       .then((response) => {
-    
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("email", response.data.email);
         localStorage.setItem("user", response.data.user);
@@ -37,6 +38,7 @@ const AdminLogin = () => {
         setIsLoading(false); // Set isLoading to false after the request is completed
       });
   };
+   
   useEffect(() => {
     const role = localStorage.getItem("role");
     if (role === "admin") {
@@ -65,7 +67,12 @@ const AdminLogin = () => {
                 Admin <b>Login</b>
               </p>
               {/* <SubscribeForm /> */}
-
+              //testing id and password
+              <div>
+                email: knikhil128@gmail.com
+                <br />
+                password: 12
+              </div>
               <form
                 onSubmit={handleSubmit}
                 className="ezy__comingsoon13-subscription-form mt-6 "

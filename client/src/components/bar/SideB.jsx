@@ -7,13 +7,17 @@ import {
   FaChalkboardTeacher,
   FaClipboardList,
   FaExclamationTriangle,
+  FaBook,
+  FaCheckCircle,
 } from "react-icons/fa";
 
 const SideB = ({ showSidebar }) => {
   const role = localStorage.getItem("role");
   const user = localStorage.getItem("user");
   const school_id = localStorage.getItem("_id");
-  const buttonCss = `flex items-center px-4 py-3 text-gray-100 transition-colors duration-300 transform rounded-lg hover:text-white hover:bg-blue-600 aria-[current=page]:text-white aria-[current=page]:bg-blue-700 `;
+  const sclassName_id = localStorage.getItem("sclassName_id");
+  const buttonCss = `flex items-center px-4 py-2 text-gray-300 rounded-lg dark:text-gray-300 hover:text-white hover:bg-blue-500 dark:hover:bg-gray-700`;
+  const activeButtonCss = `bg-blue-700 text-white dark:bg-gray-700`;
 
   return (
     <div className="flex flex-col">
@@ -33,86 +37,238 @@ const SideB = ({ showSidebar }) => {
             </Link>
           </div>
 
-          <nav className="mt-6 h-full overflow-y-auto">
-            <div className="h-full space-y-5 flex flex-col justify-center">
-              <NavLink to="/admin" className={buttonCss}>
-                <FaHome className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-md md:text-xl font-medium`}
+          {role === "admin" && (
+            <nav className="mt-6 h-full overflow-y-auto">
+              <div className="h-full space-y-5 flex flex-col justify-center">
+                <NavLink
+                  to="/admin"
+                  end
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  Dashboard
-                </span>
-              </NavLink>
-              <NavLink
-                to={`admin-list-class/school____id/${school_id}`}
-                className={buttonCss}
-              >
-                <FaList className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaHome className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-md md:text-xl font-medium`}
+                  >
+                    Dashboard
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`admin-list-class/school____id/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  List Class
-                </span>
-              </NavLink>
-              <NavLink
-                to={`list-student/school____id/${school_id}`}
-                className={buttonCss}
-              >
-                <FaUsers className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaList className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Class
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`list-student/school____id/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  List Student
-                </span>
-              </NavLink>
-              <NavLink to={`list-subject/${school_id}`} className={buttonCss}>
-                <FaChalkboardTeacher className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaUsers className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Student
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`list-subject/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  Subject List
-                </span>
-              </NavLink>
-              <NavLink to={`list-teacher/${school_id}`} className={buttonCss}>
-                <FaChalkboardTeacher className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaChalkboardTeacher className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    Subject List
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`list-teacher/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  Teacher List
-                </span>
-              </NavLink>
-              <NavLink to={`list-notice/${school_id}`} className={buttonCss}>
-                <FaClipboardList className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaChalkboardTeacher className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    Teacher List
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`list-notice/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  List Notices
-                </span>
-              </NavLink>
-              <NavLink to={`list-complain/${school_id}`} className={buttonCss}>
-                <FaExclamationTriangle className="mx-2 text-lg" />
-                <span
-                  className={`${
-                    showSidebar ? "inline" : "hidden"
-                  } text-sm md:text-xl font-medium`}
+                  <FaClipboardList className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Notices
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`list-complain/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
                 >
-                  List Complaints
-                </span>
-              </NavLink>
-            </div>
-          </nav>
+                  <FaExclamationTriangle className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Complaints
+                  </span>
+                </NavLink>
+              </div>
+            </nav>
+          )}
+          {role === "teacher" && (
+            <nav className="mt-6 h-full overflow-y-auto">
+              <div className="h-full space-y-5 flex flex-col justify-center">
+                <NavLink
+                  to="/teacher"
+                  end
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaHome className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-md md:text-xl font-medium`}
+                  >
+                    Dashboard
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`teacher-list-class/school____id/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaList className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Class
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`teacher-list-complain/${school_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaExclamationTriangle className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    List Complaints
+                  </span>
+                </NavLink>
+              </div>
+            </nav>
+          )}
+
+          {role === "Student" && (
+            <nav className="mt-6 h-full overflow-y-auto">
+              <div className="h-full space-y-5 flex flex-col justify-center">
+                <NavLink
+                  to="/student"
+                  end
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaHome className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-md md:text-xl font-medium`}
+                  >
+                    Dashboard
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`student-subjects/class____id/${sclassName_id}`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaBook className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    Subjects
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`student-attendance`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaCheckCircle className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    Attendance
+                  </span>
+                </NavLink>
+                <NavLink
+                  to={`student-complaints`}
+                  className={({ isActive }) =>
+                    isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
+                  }
+                >
+                  <FaExclamationTriangle className="mx-2 text-lg" />
+                  <span
+                    className={`${
+                      showSidebar ? "inline" : "hidden"
+                    } text-sm md:text-xl font-medium`}
+                  >
+                    Complaints
+                  </span>
+                </NavLink>
+              </div>
+            </nav>
+          )}
         </div>
       </div>
       <div className="ml-4 rounded-2xl border-4 border-blue-500 bg-gray-900  p-4 text-center shadow-lg  mt-2">

@@ -27,10 +27,12 @@ export const StudentRegister = async (req, res) => {
       return res.status(400).json({ message: "Roll Number already exists" });
     }
 
+    // Hash the password
+    const hashPassword = await bcrypt.hash(password, 10);
     // Create a new student instance
     const newStudent = new Student({
       school: adminID,
-      password,
+      password: hashPassword,
       rollNum,
       sclassName,
       name,
@@ -49,6 +51,7 @@ export const StudentRegister = async (req, res) => {
 };
 
 export const studentLogIn = async (req, res) => {
+  console.log(req.body, 154154154);
   try {
     let student = await Student.findOne({
       rollNum: req.body.rollNum,
@@ -60,6 +63,7 @@ export const studentLogIn = async (req, res) => {
         student.password
       );
       if (validated) {
+        // console.log(student, 5544466);
         student = await student.populate("school", "schoolName");
         student = await student.populate("sclassName", "sclassName");
         student.password = undefined;
@@ -136,6 +140,7 @@ export const getStudentDetail = async (req, res) => {
       .populate("attendance.subName", "subName sessions");
 
     if (student) {
+      console.log(student, 656565);
       student.password = undefined;
       return res.json(student);
     } else {

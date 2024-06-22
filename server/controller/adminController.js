@@ -29,7 +29,7 @@ export const adminRegister = async (req, res) => {
       schoolName: req.body.schoolName,
     });
 
-    console.log(existingAdminByEmail, existingSchool);
+    console.log(existingAdminByEmail, existingSchool,55699887);
 
     if (existingAdminByEmail) {
       res.send({ message: "Email already exists " });

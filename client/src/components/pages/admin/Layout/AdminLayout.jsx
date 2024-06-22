@@ -4,15 +4,13 @@ import { Outlet } from "react-router-dom";
 import ContentContainer from "./ContentContainer";
 import SideB from "../../../bar/SideB";
 
-const AdminLayout = () => {
+const AdminLayout = ({ role }) => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   return (
     <>
-  
-
       <div className="flex bg-gray-900">
-      <Topbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        <Topbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <SideB showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <ContentContainer showSidebar={showSidebar}>
           <Outlet />

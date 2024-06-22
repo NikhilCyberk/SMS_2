@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import bcrypt from "bcrypt";
 import { faker } from "@faker-js/faker";
 import { Complain } from "./models/complainSchema.js";
 import { Notice } from "./models/noticeSchema.js";
@@ -37,7 +38,10 @@ const generateFakeData = async () => {
 
   // Generate Admin data
   const adminId = "661ab6e0752e60e4fa24cbde"; // Example admin ID, replace with your actual ID
-  const passwd = "test123";
+
+  const password = "test123";
+
+  const passwd = await bcrypt.hash(password, 10);
 
   // Generate Sclass data
   const sclasses = [];

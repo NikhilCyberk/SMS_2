@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navigation1 from "../../bar/Navigation1";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const StudentLogin = () => {
+const StudentLogin = ({ setLoginStatus }) => {
+  const [rollNum, setRollNum] = useState("");
+  const [password, setPassword] = useState("");
+  const [studentName, setstudentName] = useState("");
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+
+  axios.defaults.withCredentials = true;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3000/student-login", {
+        rollNum,
+        studentName,
+        password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response, 789546);
+          localStorage.setItem("_id", response.data._id);
+          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("sclassName_id", response.data.sclassName._id);
+          localStorage.setItem(
+            "sclassName",
+            response.data.sclassName.sclassName
+          );
+          localStorage.setItem("rollNum", response.data.rollNum);
+          localStorage.setItem("role", response.data.role);
+          localStorage.setItem("schoolName", response.data.school.schoolName);
+          localStorage.setItem("school_id", response.data.school._id);
+
+          setIsLoading(false);
+          setLoginStatus((prev) => !prev);
+          navigate("/student");
+        } else if (response.data.message) {
+          alert(response.data.message);
+          // Navigate to student dashboard or desired route
+        }
+      })
+      .catch((error) => {
+        // setIsLoading(false);
+        alert("Login failed. Please try again.", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (role === "Student") {
+      navigate("/student");
+    }
+  }, [navigate]);
+
   return (
-    <div className="">
+    <>
       <Navigation1 />
       <section className="md:py-52 bg-white dark:bg-indigo-900 text-gray-900 dark:text-white relative z-[1] flex items-center overflow-hidden">
         <div
@@ -25,22 +82,29 @@ const StudentLogin = () => {
                 Student <b>Login</b>
               </p>
               <form
-                // onSubmit={handleSubmit}
+                onSubmit={handleSubmit}
                 className="ezy__comingsoon13-subscription-form mt-6 "
               >
                 <div className="flex flex-col w-full">
                   <input
                     className="py-4 px-5 shadow-lg dark:bg-white dark:bg-opacity-30 rounded-xl placeholder:text-lg focus:outline-none w-full mb-4"
                     type="text"
-                    placeholder="Email"
-                    // onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Your Roll No."
+                    onChange={(e) => setRollNum(e.target.value)}
+                    required
+                  />
+                  <input
+                    className="py-4 px-5 shadow-lg dark:bg-white dark:bg-opacity-30 rounded-xl placeholder:text-lg focus:outline-none w-full mb-4"
+                    type="text"
+                    placeholder="Enter Your Name"
+                    onChange={(e) => setstudentName(e.target.value)}
                     required
                   />
                   <input
                     className="py-4 px-5 shadow-lg dark:bg-gray-500 dark:bg-opacity-30 rounded-xl placeholder:text-lg focus:outline-none w-full mb-4"
                     type="password"
                     placeholder="*********"
-                    // onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -69,7 +133,7 @@ const StudentLogin = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-// import './App.css'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import AdminLogin from "./components/pages/admin/AdminLogin";
 import AdminSignup from "./components/pages/admin/AdminSignup";
 import ForgotPassword from "./components/pages/admin/ForgotPassword";
@@ -36,36 +35,10 @@ import SubjectDetails from "./components/pages/subject/SubjectDetails";
 import TeacheDetails from "./components/pages/teacher/TeacheDetails";
 import NotFound from "./NotFound";
 import StudentDashBoard from "./components/pages/student/StudentDashBoard";
-import TeacherDashboard from "./components/pages/teacher/TeacherDashboard";
-import StudentSubjectDetails from "./components/pages/student/StudentSubjectDetails";
-import StudentAttendance from "./components/pages/student/StudentAttendance";
-import ComplaintForm from "./components/pages/admin/ComplaintForm";
-// import ProtectedRoute from "./ProtectedRoute";
 
-function App() {
-  const id = localStorage.getItem("_id");
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
-  const [loginStatus, setLoginStatus] = useState(false);
-  const school_id = localStorage.getItem("school_id");
-
+const AdminRoute = ({ id }) => {
   return (
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-      {/* <Route path="*" element={<NotFound />} /> */}
-      <Route path="/chooseuser" element={<ChooseUser />} />
-
-      <Route path="/login" element={<AdminLogin />} />
-      <Route path="/signup" element={<AdminSignup />} />
-
-      <Route
-        path="/st_login"
-        element={<StudentLogin setLoginStatus={setLoginStatus} />}
-      />
-      <Route path="/t_login" element={<TeacherLogin />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/resetPassword/:token" element={<ResetPassword />} />
-
+    <>
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboard />} />
         {/* <Route path="admin-profile" element={<AdminProfile />} /> */}
@@ -108,25 +81,8 @@ function App() {
 
         <Route path="list-teacher/:id/:teacherId" element={<TeacherDetail />} />
       </Route>
-
-      <Route path="/student" element={<AdminLayout role={role} />}>
-        <Route index element={<StudentDashBoard />} />
-        <Route
-          path="student-subjects/class____id/:class_id"
-          element={<StudentSubjectDetails />}
-        />
-        <Route path="student-attendance" element={<StudentAttendance />} />
-        <Route
-          path="student-complaints"
-          element={<ComplaintForm id={school_id} />}
-        />
-      </Route>
-
-      <Route path="/teacher" element={<AdminLayout />}>
-        <Route index element={<TeacherDashboard />} />
-      </Route>
-    </Routes>
+    </>
   );
-}
+};
 
-export default App;
+export default AdminRoute;
