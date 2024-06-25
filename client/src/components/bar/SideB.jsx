@@ -15,7 +15,8 @@ const SideB = ({ showSidebar }) => {
   const role = localStorage.getItem("role");
   const user = localStorage.getItem("user");
   const school_id = localStorage.getItem("_id");
-  const sclassName_id = localStorage.getItem("sclassName_id");
+  const sclassName_id = localStorage.getItem("techerClassId");
+  const teacher_sclassName = localStorage.getItem("techerClassName");
   const buttonCss = `flex items-center px-4 py-2 text-gray-300 rounded-lg dark:text-gray-300 hover:text-white hover:bg-blue-500 dark:hover:bg-gray-700`;
   const activeButtonCss = `bg-blue-700 text-white dark:bg-gray-700`;
 
@@ -149,7 +150,7 @@ const SideB = ({ showSidebar }) => {
               </div>
             </nav>
           )}
-          {role === "teacher" && (
+          {role === "Teacher" && (
             <nav className="mt-6 h-full overflow-y-auto">
               <div className="h-full space-y-5 flex flex-col justify-center">
                 <NavLink
@@ -169,7 +170,7 @@ const SideB = ({ showSidebar }) => {
                   </span>
                 </NavLink>
                 <NavLink
-                  to={`teacher-list-class/school____id/${school_id}`}
+                  to={`class/students/class____id/${sclassName_id}`}
                   className={({ isActive }) =>
                     isActive ? `${buttonCss} ${activeButtonCss}` : buttonCss
                   }
@@ -180,7 +181,7 @@ const SideB = ({ showSidebar }) => {
                       showSidebar ? "inline" : "hidden"
                     } text-sm md:text-xl font-medium`}
                   >
-                    List Class
+                    Class{" " + teacher_sclassName}
                   </span>
                 </NavLink>
                 <NavLink

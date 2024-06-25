@@ -40,6 +40,7 @@ import TeacherDashboard from "./components/pages/teacher/TeacherDashboard";
 import StudentSubjectDetails from "./components/pages/student/StudentSubjectDetails";
 import StudentAttendance from "./components/pages/student/StudentAttendance";
 import ComplaintForm from "./components/pages/admin/ComplaintForm";
+import ClassStudentsDashboard from "./components/pages/teacher/ClassStudentsDashboard";
 // import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -124,6 +125,10 @@ function App() {
 
       <Route path="/teacher" element={<AdminLayout />}>
         <Route index element={<TeacherDashboard />} />
+        <Route
+          path="class/students/class____id/:class_id"
+          element={<ClassStudentsDashboard />}
+        />
       </Route>
     </Routes>
   );
